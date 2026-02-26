@@ -1,0 +1,3691 @@
+/* ==============================
+   TEAM ROW (OPTION B: 4-across, fixed card width)
+   Keeps cards at 275px and forces a single line on desktop.
+================================== */
+
+/* Outer section (safe defaults) */
+.team-gradient-banner{
+  width: 100%;
+}
+
+/* Row: 4 cards across */
+.team-gradient-banner .team-row{
+  width: min(1400px, calc(100% - 60px));
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+
+  /* IMPORTANT: keeps them on one line */
+  flex-wrap: nowrap;
+}
+
+/* ==============================
+   TEAM CARD – FIXED SIZE (same look)
+================================== */
+
+.team-gradient-banner .hover-card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* Keep your exact card size */
+  width: 275px;
+  flex: 0 0 275px; /* prevents shrinking / wrapping weirdness */
+
+  padding: 0 !important;
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 18px;
+
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  text-decoration: none;
+  overflow: hidden !important;
+
+  transition:
+    transform .18s ease,
+    box-shadow .28s ease,
+    background .28s ease,
+    border-color .28s ease;
+}
+
+/* Highlight ring */
+.team-gradient-banner .hover-card::before{
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    120% 120% at 30% 10%,
+    rgba(255,255,255,0.32) 0%,
+    rgba(255,255,255,0.05) 45%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Hover */
+.team-gradient-banner .hover-card:hover{
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(255,255,255,0.9);
+  box-shadow: 0 22px 55px rgba(0,0,0,0.22);
+}
+.team-gradient-banner .hover-card:hover::before{ opacity: 1; }
+
+/* ==============================
+   IMAGE – FULL BLEED
+================================== */
+
+.team-gradient-banner .headshot{
+  position: relative;
+  width: 100%;
+  height: 220px; /* choose ONE height; this is your later value */
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border-radius: 18px 18px 0 0;
+  overflow: hidden !important;
+
+  box-shadow: none !important;
+}
+
+/* Image */
+.team-gradient-banner .headshot img{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  margin: 0 !important;
+
+  object-fit: cover !important;
+  object-position: center top !important;
+
+  transform: none;
+  transition: transform .35s ease;
+}
+
+/* Subtle zoom */
+.team-gradient-banner .hover-card:hover .headshot img{
+  transform: scale(1.04);
+}
+
+/* ==============================
+   PLACEHOLDER HEADSHOT (initials)
+   Use on Kayla until photo exists
+================================== */
+
+.team-gradient-banner .headshot.headshot-empty{
+  background: linear-gradient(135deg, #f4f6f9, #e9edf3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-gradient-banner .headshot .headshot-initials{
+  font-family: "Gotham", "Gotham SSm", "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 42px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.35);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  display: block;
+  transform: translateY(6px); /* tiny optical centering */
+}
+
+/* ==============================
+   TEXT AREA
+================================== */
+
+.team-gradient-banner .hover-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 22px 22px 26px;
+  text-align: center;
+
+  color: #00549A;
+  z-index: 3;
+
+  transition: transform 0.25s ease;
+}
+
+.team-gradient-banner .hover-text .name{
+  font-size: 26px;
+  font-weight: 300;
+  margin: 0 0 6px;
+}
+
+.team-gradient-banner .hover-text .role{
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* lift text slightly */
+.team-gradient-banner .hover-card:hover .hover-text{
+  transform: translateY(-2px);
+}
+
+/* ==============================
+   RESPONSIVE (keeps desktop 4-across, then drops cleanly)
+================================== */
+
+/* 2 per row */
+@media (max-width: 1200px){
+  .team-gradient-banner .team-row{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* 1 per row */
+@media (max-width: 768px){
+  .team-gradient-banner .team-row{
+    width: min(560px, calc(100% - 32px));
+    gap: 18px;
+  }
+
+  .team-gradient-banner .hover-card{
+    width: 100%;
+    max-width: 520px;
+    flex: 0 1 520px;
+  }
+
+  .team-gradient-banner .headshot{
+    height: 240px;
+  }
+}
+
+
+
+/* ============================
+   INTEGRATED STAFFING ACCORDION
+   ============================ */
+
+  /* Wrapper for the whole block */
+.hover-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  font-family: gotham, sans-serif;
+}
+
+/* Each row */
+.hover-accordion .item {
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Title line – make it look like your H2 */
+.hover-accordion .item-title {
+  font-size: 30px;       /* adjust for size */
+  font-weight: 300;
+  color: #0070CA;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  transition: color .5s ease;
+}
+
+/* Color accent on hover */
+.hover-accordion .item:hover .item-title {
+  color: #3AAAE8;
+}
+
+/* Little chevron on the right */
+.hover-accordion .item-title::after {
+  content: "›";
+  font-size: 30px;
+  transform: rotate(90deg);
+  opacity: .45;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+/* Rotate chevron when hovered */
+.hover-accordion .item:hover .item-title::after {
+  transform: rotate(270deg);
+  opacity: 1;
+}
+
+.hover-accordion .item:hover .item-title::before {
+  width: 100%;
+}
+
+/* Hidden content by default */
+.hover-accordion .item-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  margin-top: 0;
+  transition: max-height .4s ease, opacity .35s ease, margin-top .35s ease;
+}
+
+/* Reveal content on hover of whole item */
+.hover-accordion .item:hover .item-content {
+  max-height: 260px;   /* increase if your copy is longer */
+  opacity: 1;
+  pointer-events: auto;
+  margin-top: 20px;
+}
+
+/* Paragraph styling */
+.hover-accordion .item-content p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.78);
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .hover-accordion .item-title {
+    font-size: 28px;
+  }
+  .hover-accordion .item-content p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hover-accordion .item-title {
+    font-size: 28px;
+
+    /* FIX: allow wrapped lines to align naturally */
+    align-items: flex-start;
+    line-height: 1.25;
+    gap: 6px; /* slight breathing room between text + chevron */
+  }
+
+  .hover-accordion .item-content p {
+    font-size: 17px;
+  }
+
+  /* keep chevron properly positioned when title wraps */
+  .hover-accordion .item-title::after {
+    margin-top: 4px;
+  }
+}
+
+/* Allow title rows to expand naturally when text wraps */
+.hover-accordion .item-title {
+  align-items: flex-start;      /* lets the text stack cleanly */
+  line-height: 1.2;             /* creates proper space between wrapped lines */
+}
+
+/* Ensure the chevron sits at the top-left when wrapping occurs */
+.hover-accordion .item-title::after {
+  margin-top: 4px;              /* adjust if you want tighter or looser spacing */
+}
+
+
+/* Wrapper for locations */
+.locations-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: gotham, sans-serif;
+}
+
+/* Each location row */
+.locations-accordion .acc-item {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.14);
+}
+
+/* Title line (H2) */
+.locations-accordion .acc-title {
+  margin: 0;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  font-size: 32px;
+  font-weight: 275;
+  color: #00549A;
+  cursor: pointer;
+  user-select: none;
+  transition: color .25s ease;
+}
+
+/* Hover colour */
+.locations-accordion .acc-title:hover {
+  color: #0070CA;
+}
+
+/* Chevron arrow */
+.locations-accordion .acc-title::after {
+  content: "›";
+  font-size: 30px;
+  transform: rotate(90deg);
+  opacity: .45;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+/* Rotate arrow when section is open */
+.locations-accordion .acc-item.active .acc-title::after {
+  transform: rotate(270deg);
+  opacity: 1;
+}
+
+/* Underline animation */
+.locations-accordion .acc-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background: #0070CA;
+  transition: width .25s ease;
+}
+
+.locations-accordion .acc-item.active .acc-title::before {
+  width: 100%;
+}
+
+.locations-accordion .acc-content strong {
+  font-weight: 300; /* or 400 for normal */
+}
+
+/* Content (phone, address, map) hidden by default */
+.locations-accordion .acc-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: max-height .45s ease, opacity .35s ease, margin-top .35s ease;
+}
+
+/* Open content when .active */
+.locations-accordion .acc-item.active .acc-content {
+  max-height: 1200px; /* enough space for text + iframe */
+  opacity: 1;
+  margin-top: 12px;
+}
+
+/* Text inside content */
+.locations-accordion .acc-content p {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+/* Map iframe styling */
+.locations-accordion .acc-map iframe {
+  width: 100%;
+  height: 260px;
+  border: 0;
+  margin-top: 10px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .locations-accordion .acc-title {
+    font-size: 28px;
+  }
+  .locations-accordion .acc-content p {
+    font-size: 16px;
+  }
+}
+
+
+/* Slider container */
+.is-testimonial-slider {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 44px 45px 52px;
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  border-radius: 28px;
+  font-family: gotham, sans-serif;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  transition: background 0.25s ease;
+}
+
+/* Slides wrapper */
+.is-slides {
+  position: relative;
+  min-height: 320px;      /* was 260 */
+  padding-bottom: 64px;    /* tiny buffer from dots */
+}
+
+/* Each slide (stacked, faded) */
+.is-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* Visible slide */
+.is-slide.is-active {
+  opacity: 1;
+}
+
+.is-quote {
+  font-size: clamp(17px, 1.8vw, 24px);
+  font-weight: 300;
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0 0 20px;
+}
+
+.is-client {
+  font-size: 15px;
+  font-weight: 300;
+  color: #ffffff;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Dots pinned to bottom of card */
+.is-dots{
+  position: absolute;
+  left: 50%;
+  bottom: 32px;           /* adjust visually: 28–36px */
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 3;
+}
+
+/* Dots */
+.is-dots button {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* Hover state */
+.is-dots button:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.08);
+}
+
+/* Active dot */
+.is-dots button.is-active {
+  background: #ffffff;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .is-testimonial-slider {
+    padding: 31px 24px;
+    background: transparent;
+  }
+
+  .is-quote {
+    font-size: 20px;
+    color: #0070CA !important;
+  }
+
+  .is-client {
+    font-size: 13px;
+    color: #00549A !important;
+  }
+}
+
+/* ============================
+   DIRECT HIRE STATS PANEL
+   ============================ */
+
+.is-stats-section.shiny-stats {
+  position: relative;
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  padding: 53px 40px;
+  border-radius: 28px;
+  max-width: 500px;
+  margin: 0 auto 60px;
+  overflow: hidden;                 /* keeps shimmer inside */
+  font-family: gotham, sans-serif;
+}
+
+.is-stats-section.shiny-stats:hover::after {
+  opacity: 1;
+}
+
+/* Grid layout – 2 x 2 on desktop */
+.is-stats-grid {
+  position: relative;
+  z-index: 1;               /* above shimmer */
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 60px;
+}
+
+/* Each "card" is now just text – no inner box */
+.is-stat-card {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  color: #ffffff;
+}
+
+/* Number styling */
+.is-stat-card .stat-number {
+  font-size: 70px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+}
+
+/* Label text */
+.is-stat-card .stat-label {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+/* Slight lift effect on hover – just for polish */
+.is-stat-card:hover .stat-number {
+  transform: translateY(-4px);
+  transition: transform .18s ease;
+}
+
+@media (max-width: 768px) {
+
+  /* Remove the blue slab on mobile */
+  .is-stats-section.shiny-stats {
+    background: transparent !important;
+    padding: 10 16px 40px !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* 2 x 2 grid */
+  .is-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 36px !important;
+  }
+
+  /* Each stat becomes its own small block */
+  .is-stat-card {
+    background: rgba(0, 84, 154, 0.06) !important;  /* subtle blue tint */
+    border: 0px solid rgba(0, 84, 154, 0.18) !important;
+    border-radius: 16px !important;
+    padding: 18px 12px !important;
+    text-align: center !important;
+
+    /* THIS is the key fix */
+    color: #00549A !important;
+  }
+
+  .is-stat-card .stat-number {
+    font-size: 36px !important;
+    margin-bottom: 10px !important;
+    color: #0070CA !important;
+  }
+
+  .is-stat-card .stat-label {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+    color: rgba(11, 27, 43, 0.85) !important; /* readable on white */
+  }
+
+  /* No hover transforms on mobile */
+  .is-stat-card:hover .stat-number {
+    transform: none !important;
+  }
+}
+
+/* Center-align stats inside their column */
+.direct-hire-metrics-right .is-stats-grid {
+  justify-items: center;
+  text-align: center;
+}
+
+/* Increase spacing between quote block and dots */
+.direct-hire-metrics-left .is-dots {
+  margin-top: 34px; /* reduces the “crowding” feeling */
+}
+
+/* Vertically + horizontally center stats INSIDE the right blue panel */
+.direct-hire-metrics-right .is-stats-section.shiny-stats {
+  display: flex;
+  align-items: center;   /* vertical centering */
+  justify-content: center; /* overall horizontal centering of the grid block */
+}
+
+/* Center the grid content itself */
+.direct-hire-metrics-right .is-stats-grid {
+  justify-items: center;
+  text-align: center;
+}
+
+/* Mobile layout – cleaner, tighter stats card */
+@media (max-width: 768px) {
+  .is-stats-section.shiny-stats {
+    padding: 28px 22px 32px;   /* less vertical padding */
+    border-radius: 24px;       /* keep it nicely rounded */
+    max-width: 480px;          /* prevents it from feeling too wide */
+    margin: 24px auto 40px;    /* breathing room around the card */
+  }
+
+  .is-stats-grid {
+    grid-template-columns: 1fr;  /* single column */
+    row-gap: 16px;               /* tighter spacing between stats */
+  }
+
+  .is-stat-card {
+    text-align: center;
+  }
+
+  .is-stat-card .stat-number {
+    font-size: 40px;     /* smaller numbers for mobile */
+    margin-bottom: 6px;  /* less space before label */
+  }
+
+  .is-stat-card .stat-label {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Constrain the width of stat labels so they wrap nicely */
+  .is-stat-card .stat-label {
+    max-width: 200px;     /* adjust to taste (220–260 works well) */
+    margin-left: auto;    /* keeps it centered */
+    margin-right: auto;   /* keeps it centered */
+    text-align: center;   /* maintain centered text */
+  }
+}
+
+/* =========================
+   FORCE EQUAL HEIGHT PANELS (DESKTOP ONLY)
+   ========================= */
+@media (min-width: 769px) {
+
+  /* 2-column layout */
+  .direct-hire-metrics{
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 40px 24px 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  /* Make the columns stretch */
+  .direct-hire-metrics-left,
+  .direct-hire-metrics-right{
+    display: flex;
+  }
+
+  /* Make BOTH blue cards identical height */
+  .direct-hire-metrics-left .is-testimonial-slider,
+  .direct-hire-metrics-right .is-stats-section.shiny-stats{
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 520px; /* <- THIS is the equalizer. Adjust if you want taller/shorter */
+    box-sizing: border-box;
+  }
+
+  /* Keep slider internals from forcing extra height weirdly */
+  .direct-hire-metrics-left .is-slides{
+    min-height: 0; /* stops double “min-height stacking” */
+  }
+
+  /* Keep stats grid centered and not too wide */
+  .direct-hire-metrics-right .is-stats-grid{
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Optional: tighten dots spacing so the left card doesn't feel “lower heavy” */
+  .direct-hire-metrics-left .is-dots{
+    margin-top: 28px;
+  }
+}
+
+.team-gradient-banner {
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  border-radius: 28px;
+  padding: 90px 40px;
+  margin: 0 auto 60px;
+}
+
+.team-row {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.team-heading {
+  font-family: gotham, sans-serif;
+  font-size: 38px;
+  font-weight: 275;
+  color: white;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.cta-vertical-clickable{
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  border-radius: 24px;
+  padding: 28px 28px;
+  max-width: 560px;
+  margin: 0 auto 48px;
+
+  display:flex;
+  flex-direction:column;
+  gap:0px;
+
+  font-family:gotham, sans-serif;
+}
+
+/* Each clickable row */
+.cta-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:14px 18px;
+  text-decoration:none;
+  color:#fff;
+  border-radius:12px;
+
+  transition:
+    background .22s ease,
+    transform .18s ease,
+    opacity .22s ease;
+}
+
+/* Spotlight dim */
+.cta-vertical-clickable:hover .cta-item{
+  opacity:.4;
+}
+
+.cta-vertical-clickable:hover .cta-item:hover{
+  opacity:1;
+  background:rgba(255,255,255,0.16);
+  transform:translateX(4px);
+}
+
+/* Type — tightened */
+.cta-label{
+  font-size:34px;
+  font-weight:275;
+  line-height:1.15;
+}
+
+.cta-data{
+  font-size:23px;
+  font-weight:275;
+  opacity:.85;
+}
+
+/* Active tap */
+.cta-item:active{
+  background:rgba(255,255,255,0.26);
+}
+
+/* =========================
+   MOBILE / TABLET
+========================= */
+@media(max-width:768px){
+
+  .cta-vertical-clickable{
+    padding:20px 18px;
+    margin:0 14px 36px;
+    border-radius:20px;
+    gap:8px;
+  }
+
+  .cta-item{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    padding:12px 14px;
+  }
+
+  .cta-label{
+    font-size:26px;
+  }
+
+  .cta-data{
+    font-size:18px;
+  }
+
+  /* Disable hover spotlight on touch */
+  .cta-vertical-clickable:hover .cta-item{
+    opacity:1;
+  }
+
+  .cta-vertical-clickable:hover .cta-item:hover{
+    transform:none;
+  }
+}
+
+
+.acc-item.active .acc-content {
+  margin-top: 17px; /* increase or decrease as needed */
+}
+
+/* Base text — dark static */
+.keynote-heading {
+  color: #0070CA; /* or #0070CA if you want slightly brighter */
+  position: relative;
+  display: inline-block;
+  font-family: gotham, sans-serif;
+  transition: color .45s cubic-bezier(0.4, 0, 0.2, 1),
+              background .45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover — moving lighter gradient */
+.keynote-heading.is-keynote {
+  color: transparent;
+background: radial-gradient(
+  circle 120px at var(--gx) 50%,
+  #3AAAE8 0%,
+  #0070CA 100%
+);
+background-size: 300% 100%;
+  background-position: var(--gx, 50%) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Force the locations accordion to use dark text, no dimming */
+.locations-accordion .acc-title,
+.locations-accordion .acc-content,
+.locations-accordion .acc-content p,
+.locations-accordion .acc-content h4 {
+  color: #00549A !important;  /* dark navy */
+  opacity: 1 !important;
+}
+
+.acc-map {
+  margin-top: 10px;
+}
+
+.acc-map iframe {
+  width: 100%;
+  max-width: 100%;
+  height: 260px;   /* adjust taller/shorter if you want */
+  border: 0;
+  border-radius: 12px;
+}
+
+.locations-accordion .acc-title {
+  color: #00549A; /* default navy */
+  transition: color .25s ease;
+}
+
+.locations-accordion .acc-title:hover {
+  color: #3AAAE8; /* brighter blue on hover */
+}
+
+.locations-accordion .acc-title:hover::after {
+  color: #0070CA;
+}
+
+/* ==============================
+   ISL Benefits Click Carousel
+   FIX “LEFT SHIFTING” / LAYOUT JUMP
+   (CSS) – Copy/Paste
+================================== */
+
+/* Full-bleed wrapper */
+.isl-benefit-gallery{
+  width: 100vw;
+  max-width: 100vw;
+  margin: 60px 0;
+  padding: 10px 0 36px;
+  position: relative;
+
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  font-family: gotham, sans-serif;
+  overflow: hidden;
+}
+
+/* Header */
+.isl-benefit-header{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 18px 22px;
+}
+
+.isl-benefit-title{
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 325;
+}
+
+.isl-benefit-title span{
+  color: #0070CA;
+}
+
+/* ==========================================================
+   THE FIX:
+   The “shift left” usually happens because the scroll container
+   width changes as the browser decides whether a scrollbar is needed
+   (or because of scroll-snap/padding interplay).
+   We lock the track width and reserve stable gutters.
+========================================================== */
+
+.isl-benefit-track{
+  display: flex;
+  gap: 28px;
+
+  /* Force stable layout width */
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Stable gutters left/right so end-of-track doesn't feel like a jump */
+  padding-left: clamp(24px, 5vw, 80px);
+  padding-right: clamp(24px, 5vw, 80px);
+  padding-top: 18px;
+  padding-bottom: 8px;
+
+  /* Horizontal scrolling */
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Prevent scrollbar/viewport reflow jumps */
+  scrollbar-gutter: stable both-edges;
+
+  /* Snap */
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: clamp(24px, 5vw, 80px);
+  scroll-padding-right: clamp(24px, 5vw, 80px);
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  /* Strong edge fade (mask) */
+  --fade: clamp(60px, 10vw, 160px);
+
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.10) 8%,
+    #000 26%,
+    #000 74%,
+    rgba(0,0,0,0.10) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.10) 8%,
+    #000 26%,
+    #000 74%,
+    rgba(0,0,0,0.10) 92%,
+    transparent 100%
+  );
+}
+
+.isl-benefit-track::-webkit-scrollbar{
+  display: none;
+}
+
+/* Cards */
+.isl-benefit-card{
+  flex: 0 0 360px;
+  scroll-snap-align: start;
+  border-radius: 12px;
+
+  /* remove shadow/border seams */
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Controls */
+.isl-benefit-controls{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 6px 18px 0;
+}
+
+/* Arrows */
+.isl-benefit-nav{
+  appearance: none;
+  border: 0;
+  background: #0070CA;
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, opacity .2s ease;
+}
+
+.isl-benefit-nav:hover{
+  background: #00549A;
+  transform: scale(1.07);
+}
+
+.isl-benefit-nav:disabled{
+  opacity: .35;
+  cursor: default;
+  transform: none;
+}
+
+/* Dots */
+.isl-benefit-dots{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 520px;
+}
+
+.isl-benefit-dot{
+  appearance: none;
+  border: 0;
+  padding: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0,112,202,0.25);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.isl-benefit-dot.is-active{
+  background: #0070CA;
+  transform: scale(1.25);
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  .isl-benefit-gallery{
+    margin: 40px 0;
+    padding-bottom: 30px;
+  }
+
+  .isl-benefit-track{
+    gap: 18px;
+
+    /* Keep gutters stable on mobile too */
+    padding-left: 16px;
+    padding-right: 16px;
+    scroll-padding-left: 16px;
+    scroll-padding-right: 16px;
+
+    /* slightly smaller fade on small screens */
+    --fade: 80px;
+  }
+
+  .isl-benefit-card{
+    flex: 0 0 85%;
+  }
+
+  .isl-benefit-dots{
+    max-width: 92%;
+  }
+}
+
+/* ==============================
+   ISL Benefits Carousel
+   CARD PROPORTION TWEAK
+   (More square / portrait)
+   COPY & PASTE
+================================== */
+
+/* Track spacing tweak to suit narrower cards */
+.isl-benefit-track{
+  gap: 24px; /* slightly tighter so it feels intentional */
+}
+
+/* Cards – less wide, more square */
+.isl-benefit-card{
+  flex: 0 0 280px;      /* was 360px */
+  min-height: 200px;   /* gives more vertical presence */
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Card text balance */
+.isl-benefit-card h3{
+  font-size: 18px;
+  line-height: 1.35;
+  padding: 0 18px;
+}
+
+/* Slightly stronger visual weight for center cards */
+.isl-benefit-card{
+  transition: transform .25s ease;
+}
+
+.isl-benefit-track:hover .isl-benefit-card{
+  transform: scale(0.985);
+}
+
+.isl-benefit-track:hover .isl-benefit-card:hover{
+  transform: scale(1);
+}
+
+/* Mobile: still swipe-friendly but not banner-shaped */
+@media (max-width: 768px){
+  .isl-benefit-card{
+    flex: 0 0 75%;
+    min-height: 190px;
+  }
+
+  .isl-benefit-card h3{
+    font-size: 17px;
+  }
+}
+
+
+
+
+
+/* Full-width industry slider */
+.industry-slider {
+  position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  height: 460px;              /* adjust height if you want */
+  overflow: hidden;
+  font-family: gotham, sans-serif;
+}
+
+/* Each slide fills the area */
+.industry-slide {
+  position: absolute;
+  inset: 0;
+  background-image: var(--slide-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;       /* disable hover/click when hidden */
+}
+
+.industry-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Dark overlay with content */
+.industry-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.60),
+    rgba(0, 0, 0, 0.60)
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 12%;
+  color: #fff;
+  cursor: default;
+  transition: background .25s ease;
+}
+
+/* H1 title */
+.industry-title {
+  margin: 0 0 10px;
+  font-size: 60px;
+  font-weight: 275;
+  color: #fff !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+
+/* Details panel (collapsed by default) */
+.industry-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  transition: max-height .35s ease, opacity .35s ease, margin-top .35s ease;
+}
+
+/* Open when you hover the title, and stay open while hovering the text */
+/* Open when hovering anywhere over the overlay (title + area around it) */
+.industry-overlay:hover .industry-details {
+  max-height: 200px;
+  opacity: 1;
+  margin-top: 16px;
+}
+
+.industry-details p {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+/* Arrow buttons – clean white chevrons in circles */
+.industry-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0; /* hides any stray text nodes */
+  transition: 
+    background .25s ease,
+    border .25s ease,
+    transform .25s ease;
+}
+
+.industry-arrow::before {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: solid #ffffff;      /* actual arrow color */
+  border-width: 0 3px 3px 0;  /* creates the chevron stroke */
+}
+
+/* Left arrow */
+.industry-arrow.prev::before {
+  transform: rotate(135deg);  /* points left */
+}
+
+/* Right arrow */
+.industry-arrow.next::before {
+  transform: rotate(-45deg);  /* points right */
+}
+
+.industry-arrow.prev { left: 24px; }
+.industry-arrow.next { right: 24px; }
+
+.industry-arrow:hover {
+  background: rgba(0,0,0,0.55);
+  border-color: rgba(255,255,255,1);
+  transform: translateY(-50%) scale(1.08);
+}
+
+/* Dots */
+.industry-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.industry-dot {
+  width: 8px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.45);
+  background: transparent;
+  cursor: pointer;
+  transition: 
+    border .25s ease,
+    background .25s ease,
+    transform .25s ease;
+}
+
+.industry-dot.is-active {
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255,255,255,0.7);
+  transform: scale(1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .industry-slider {
+    height: 380px;
+  }
+
+  .industry-overlay {
+    padding: 30px 24px;
+  }
+
+  .industry-title {
+    font-size: 30px;
+  }
+
+  .industry-details p {
+    font-size: 16px;
+  }
+
+  .industry-arrow {
+    display: none !important;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+}
+
+#home-page-slider {
+  position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  height: 460px;
+  overflow: hidden;
+  font-family: gotham, sans-serif;
+}
+
+/* Each slide fills the full container */
+#home-page-slider .industry-slide {
+  position: absolute;
+  inset: 0;
+  background-image: var(--slide-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#home-page-slider .industry-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Overlay and content */
+#home-page-slider .industry-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45); /* DARK OVERLAY */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 12%;
+  color: #fff;
+  cursor: default;
+  z-index: 5; /* ensures overlay is above the slide */
+}
+
+/* Title styling */
+#home-page-slider .industry-title {
+  margin: 0 0 10px;
+  font-size: 60px;
+  font-weight: 275;
+  color: #fff !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+
+/* DETAILS: Always visible */
+#home-page-slider .industry-details {
+  opacity: 1 !important;
+  max-height: none !important;
+  margin-top: 14px !important;
+  overflow: visible !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* ACTION BUTTONS */
+#home-page-slider .industry-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+}
+
+/* No hover changes */
+#home-page-slider .industry-slide:hover .industry-title,
+#home-page-slider .industry-slide:hover .industry-details,
+#home-page-slider .industry-slide:hover .industry-overlay {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+
+/* Full-width CTA banner */
+/* ================================
+   FULL-FEATURE CTA BANNER
+================================ */
+.cta-gradient-banner.wide {
+  width: 100%;
+  max-width: 1400px;          /* adjust this */
+  margin: 0px auto;
+  padding: 48px 80px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  background: linear-gradient(135deg, rgba(0,84,154,0.95), rgba(0,112,202,0.95));
+  border-radius: 38px;
+  position: relative;
+  overflow: hidden;
+  font-family: gotham, sans-serif;
+}
+
+/* Left content block */
+.cta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 60%;
+  z-index: 2;
+}
+
+.cta-title {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 300;
+  color: #fff;
+}
+
+.cta-subtext {
+  margin: 0;
+  font-size: 22px;
+  color: rgba(255,255,255,0.90);
+}
+
+/* Right button area */
+.cta-right {
+  display: flex;
+  justify-content: flex-end;
+  z-index: 2;
+}
+
+/* Cursor-follow glow (unchanged) */
+.cta-gradient-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255,255,255,0.16) 0%,
+    rgba(255,255,255,0.07) 28%,
+    rgba(255,255,255,0) 60%
+  );
+  opacity: 0;
+  transition: opacity 4s ease;
+  z-index: 0;
+}
+
+.cta-gradient-banner:hover::after {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cta-gradient-banner.wide {
+    flex-direction: column;
+    padding: 48px 28px;
+    gap: 24px;
+    text-align: center;
+
+    width: 90%;        /* instead of 100vw */
+    max-width: none;
+    margin: 0;          /* no side margin */
+    border-radius: 0;   /* remove rounded corners */
+  }
+
+  .cta-left {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .cta-right {
+    justify-content: center;
+  }
+
+  .cta-title {
+    font-size: 34px;
+  }
+
+  .cta-subtext {
+    font-size: 18px;
+  }
+}
+
+/* 2) Kill the extra spacing added by the code block */
+.sqs-block-code {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* 3) (Optional but usually needed) Reduce section padding where this CTA lives */
+.sqs-section .content-wrapper {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.isl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-family: gotham, sans-serif;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: 300;
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+/* ======================================================
+   MAIN BUTTON STYLE
+====================================================== */
+.isl-btn-primary {
+  background: linear-gradient(135deg, #00549A, #0070CA);
+  color: #fff;
+}
+
+/* Lift on hover */
+.isl-btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+/* ======================================================
+   THE SHINE THAT FOLLOWS THE CURSOR
+====================================================== */
+.isl-btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.25),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity .75s ease;
+}
+
+.isl-btn-primary:hover::after {
+  opacity: 1;
+}
+
+/* ================================
+   OUTLINE BUTTON
+================================ */
+.isl-btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.9);
+}
+
+.isl-btn-outline:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+}
+
+/* ================================
+   SOFT WHITE BUTTON
+================================ */
+.isl-btn-soft {
+  background: #ffffff;
+  color: #00549A;
+  border: 1px solid rgba(0,84,154,0.15);
+}
+
+.isl-btn-soft:hover {
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+  transform: translateY(-2px);
+}
+
+/* ================================
+   SIZE OPTIONS
+================================ */
+.isl-btn-sm {
+  padding: 10px 24px;
+  font-size: 14px;
+}
+
+.isl-btn-lg {
+  padding: 16px 42px;
+  font-size: 20px;
+}
+
+/* Dual-CTA layout (text + two buttons under, centered) */
+.cta-gradient-banner.dual {
+  width: 100%;
+  max-width: 1400px;          /* adjust width here */
+  margin: 60px auto;
+  padding: 70px 80px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 32px;
+
+  background: linear-gradient(135deg, rgba(0,84,154,0.95), rgba(0,112,202,0.95));
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  font-family: gotham, sans-serif;
+}
+
+/* Text block */
+.cta-dual-text {
+  max-width: 1000px;
+  z-index: 2;
+}
+
+/* Buttons row */
+.cta-dual-buttons {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Make the soft white buttons look good on the gradient */
+.isl-btn-soft {
+  background: #ffffff;
+  color: #00549A;
+  border: 1px solid rgba(0,84,154,0.15);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.isl-btn-soft:hover {
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+  transform: translateY(-2px);
+}
+
+.isl-btn-lg {
+  padding: 16px 42px;
+  font-size: 18px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 900px) {
+  .cta-gradient-banner.dual {
+    padding: 48px 24px;
+    gap: 24px;
+  }
+
+  .cta-title {
+    font-size: 25px;
+  }
+
+  .cta-subtext {
+    font-size: 25px;
+  }
+
+  .cta-dual-buttons {
+    gap: 16px;
+  }
+
+  .isl-btn-lg {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+/* TYPOGRAPHY FOR THE DUAL CTA */
+
+/* Desktop / default */
+.cta-gradient-banner.dual .cta-title {
+  font-size: 40px;      /* overall size */
+  font-weight: 300;     /* 300 = light, 400 = normal, 500 = semi-bold */
+  line-height: 1.1;     /* spacing between lines of the title */
+  margin: 0 0 15px;     /* space below the title */
+}
+
+.cta-gradient-banner.dual .cta-subtext {
+  font-size: 22px;      /* size of the second line */
+  font-weight: 300;
+  line-height: 1.4;     /* spacing for the second line */
+  margin: 0 0 23px;     /* space between text and buttons */
+}
+
+/* Mobile tweaks */
+@media (max-width: 900px) {
+  .cta-gradient-banner.dual .cta-title {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+
+  .cta-gradient-banner.dual .cta-subtext {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 24px;
+  }
+}
+
+/* Our Values section wrapper */
+.values-section {
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 24px;
+  font-family: gotham, sans-serif;
+}
+
+/* Heading matches your existing H2 look */
+.values-heading {
+  font-size: 54px;
+  font-weight: 275;
+  color: #0070CA;
+  margin: 0 0 40px;
+}
+
+.values-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  justify-items: center;
+}
+
+.value-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 32px 36px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  opacity: 0.92;
+  transition: transform .08s ease-out, box-shadow .25s ease;
+}
+
+
+/* Slight lift on hover (mouse) */
+.value-card:hover {
+  box-shadow: 0 22px 52px rgba(0,0,0,0.14);
+}
+
+/* Title + text inside card */
+.value-title {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 400;
+  color: #00549A;
+}
+
+.value-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #4b4b4b;
+}
+
+/* Highlighted keyword */
+.value-keyword {
+  color: #00549A;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .values-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .values-heading {
+    font-size: 40px;
+  }
+  .values-cards {
+    grid-template-columns: 1fr;
+  }
+  .value-card {
+    padding: 22px 20px 26px;
+  }
+  .value-title {
+    font-size: 20px;
+  }
+  .value-text {
+    font-size: 16px;
+  }
+}
+
+/* ========= TEAM GRID ========= */
+.isl-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  max-width: 1200px;   /* centers the whole layout */
+  margin: 60px auto 100px;
+  padding: 0 20px;
+}
+
+/* 1 per row on tablet & mobile */
+@media (max-width: 900px) {
+  .isl-team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========= TEAM CARD ========= */
+.isl-team-card {
+  display: flex;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.10);
+  transition: transform .25s ease, box-shadow .25s ease;
+  min-height: 280px;   /* larger overall block */
+}
+
+/* Hover elevation */
+.isl-team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 38px rgba(0,0,0,0.16);
+}
+
+/* ========= PHOTO ========= */
+.isl-team-photo {
+  flex: 0 0 40%;              /* bigger image column */
+  min-height: 280px;
+  background-size: cover;
+  background-position: 50% 25%;
+  transition: transform .35s ease;
+}
+
+/* Subtle zoom on hover */
+.isl-team-card:hover .isl-team-photo {
+  transform: scale(1.06);
+}
+
+/* ========= TEXT BLOCK ========= */
+.isl-team-body {
+  flex: 1;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========= NAME ========= */
+.isl-team-name {
+  font-size: 28px;         /* bigger */
+  font-weight: 350;
+  margin: 0 0 8px;
+  color: #00549A;
+  letter-spacing: .3px;
+  transition: color .25s ease;
+}
+
+/* Hover colour bump */
+.isl-team-card:hover .isl-team-name {
+  color: #0070CA;
+}
+
+/* ========= ROLE ========= */
+.isl-team-role {
+  font-size: 17px;
+  margin: 0;
+  color: #444;
+  font-weight: 300;
+}
+
+/* ========= REGION ========= */
+.isl-team-region {
+  font-size: 16px;
+  margin: 6px 0 14px;
+  color: #666;
+  font-weight: 300;
+}
+
+/* ========= CONTACT BLOCK ========= */
+.isl-team-meta {
+  font-size: 15px;
+  margin: 0 0 14px;
+  line-height: 1.6;
+}
+
+.isl-team-contact {
+  color: #00549A;
+  text-decoration: none;
+}
+.isl-team-contact:hover {
+  text-decoration: underline;
+}
+
+/* ========= READ MORE ========= */
+.isl-team-link {
+  margin-top: auto;
+  font-size: 15px;
+  color: #00549A;
+  text-decoration: none;
+  position: relative;
+}
+
+.isl-team-link:hover {
+  color: #0070CA;
+}
+.isl-team-link::after {
+  content: "";
+  width: 0;
+  height: 1.5px;
+  background: #0070CA;
+  display: block;
+  margin-top: 2px;
+  transition: width .22s ease;
+}
+.isl-team-link:hover::after {
+  width: 100%;
+}
+
+/* ========= MOBILE STACK ========= */
+@media (max-width: 900px) {
+  .isl-team-card {
+    flex-direction: column;
+    min-height: unset;
+  }
+  .isl-team-photo {
+    width: 100%;
+    min-height: 260px;
+    background-position: 50% 10%;
+  }
+  .isl-team-body {
+    padding: 22px 24px;
+  }
+  .isl-team-name {
+    font-size: 24px;
+  }
+}
+
+/* Cursor-follow gradient heading */
+.cursor-gradient-heading {
+  /* default position for the glow */
+  --x: 50%;
+  --y: 50%;
+
+  display: inline-block;
+  font-family: gotham, sans-serif;
+  font-size: clamp(42px, 6vw, 65px);
+  font-weight: 275;
+  line-height: 1;
+
+  /* gradient painted into the text */
+  background-image: radial-gradient(
+    circle at var(--x) var(--y),
+    #3AAAE8 0%,
+    #0070CA 40%,
+    #00549A 100%
+  );
+  background-size: 200% 200%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* make the fill transparent so the gradient shows */
+  color: transparent !important;
+}
+
+/* Inner layout for the team banner on Direct Hire */
+.team-gradient-banner.team-gradient-banner--direct {
+  padding: 70px 60px;
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-inner {
+  width: 100%;
+  text-align: center;
+}
+
+/* Heading + subcopy */
+.team-heading {
+  font-size: 64px;
+  line-height: 1.1;
+  margin: 0 0 19px;
+}
+
+.team-subcopy {
+  margin: 0 0 40px;
+  font-family: gotham, sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.88);
+}
+
+/* Circles row */
+.team-bubbles {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* Make the existing hover-card circles sit nicely here */
+.team-bubbles .hover-card {
+  width: 230px;
+  height: 230px;
+}
+
+/* Mobile tweaks */
+@media (max-width: 900px) {
+  .team-gradient-banner.team-gradient-banner--direct {
+    padding: 50px 24px;
+  }
+
+  .team-heading {
+    font-size: 42px;
+  }
+
+  .team-subcopy {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  .team-bubbles {
+    gap: 28px;
+  }
+
+  .team-bubbles .hover-card {
+    width: 190px;
+    height: 190px;
+  }
+}
+
+/* Hard reset any old stat card backgrounds/shadows */
+.is-stat-card,
+.is-stat-card::before,
+.is-stat-card::after {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* ========================================
+   TEAM2 COLLECTION – TEAM GRID CARDS
+   ======================================== */
+
+/* Hide the "Featured" heading on the Team2 page */
+.collection-team2 .summary-heading {
+  display: none !important;
+}
+
+/* Outer grid – 2 cards per row on desktop */
+.collection-team2 .summary-items,
+.collection-team2 .summary-item-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px !important;
+  max-width: 1200px;
+  margin: 60px auto 100px !important;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-family: gotham, sans-serif;
+}
+
+/* Card container – matches your manual team cards */
+.collection-team2 .summary-item {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.10);
+  transition: transform .25s ease, box-shadow .25s ease;
+  min-height: 280px;
+}
+
+/* Make the inner link flex so image + text sit side by side */
+.collection-team2 .summary-item > a {
+  display: flex !important;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Hover lift */
+.collection-team2 .summary-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 38px rgba(0,0,0,0.16);
+}
+
+/* ========== IMAGE COLUMN ========== */
+
+/* Fixed-width image column like your original cards */
+.collection-team2 .summary-thumbnail-outer-container,
+.collection-team2 .summary-thumbnail {
+  flex: 0 0 220px !important;  /* column width */
+  min-width: 220px !important;
+  height: 100% !important;
+  align-self: stretch;
+}
+
+/* Actual image – fill and crop nicely */
+.collection-team2 .summary-thumbnail img,
+.collection-team2 .summary-thumbnail-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center;
+  display: block;
+  transition: transform .35s ease;
+}
+
+/* Subtle zoom on hover */
+.collection-team2 .summary-item:hover .summary-thumbnail img,
+.collection-team2 .summary-item:hover .summary-thumbnail-image {
+  transform: scale(1.06);
+}
+
+/* ========== TEXT COLUMN ========== */
+
+.collection-team2 .summary-content {
+  flex: 1;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Name (post title) */
+.collection-team2 .summary-title {
+  font-size: 28px;
+  font-weight: 350;
+  margin: 0 0 8px;
+  color: #00549A;
+  letter-spacing: .3px;
+}
+
+/* Hover colour bump */
+.collection-team2 .summary-item:hover .summary-title {
+  color: #0070CA;
+}
+
+/* Excerpt – use for role, region, phone, email (each line in excerpt editor) */
+.collection-team2 .summary-excerpt p {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 300;
+  color: #444;
+  line-height: 1.45;
+}
+
+/* Hide dates/tags line */
+.collection-team2 .summary-metadata,
+.collection-team2 .summary-metadata-item {
+  display: none !important;
+}
+
+/* Read More link styled to match site */
+.collection-team2 .summary-read-more-link {
+  margin-top: auto;
+  font-size: 15px;
+  color: #00549A;
+  text-decoration: none;
+  position: relative;
+}
+.collection-team2 .summary-read-more-link:hover {
+  color: #0070CA;
+}
+.collection-team2 .summary-read-more-link::after {
+  content: "";
+  width: 0;
+  height: 1.5px;
+  background: #0070CA;
+  display: block;
+  margin-top: 2px;
+  transition: width .22s ease;
+}
+.collection-team2 .summary-read-more-link:hover::after {
+  width: 100%;
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 900px) {
+  .collection-team2 .summary-items,
+  .collection-team2 .summary-item-list {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 0 16px;
+  }
+
+  .collection-team2 .summary-item > a {
+    flex-direction: column;
+  }
+
+  .collection-team2 .summary-thumbnail-outer-container,
+  .collection-team2 .summary-thumbnail {
+    flex: none !important;
+    min-width: 100% !important;
+    height: 260px !important;
+  }
+
+  .collection-team2 .summary-content {
+    padding: 22px;
+  }
+
+  .collection-team2 .summary-title {
+    font-size: 24px;
+  }
+}
+
+
+/* ===== TEAM PROFILE LAYOUT (individual team posts) ===== */
+
+.team-profile {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: 40px auto 80px;
+  font-family: gotham, sans-serif;
+}
+
+.team-profile-photo {
+  flex: 0 0 320px;
+}
+
+.team-profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 18px 38px rgba(0,0,0,0.18);
+}
+
+.team-profile-body {
+  flex: 1;
+}
+
+.team-profile-name {
+  font-size: 72px;
+  font-weight: 275;
+  color: #00549A;
+  margin: 0 0 10px;
+}
+
+.team-profile-role {
+  font-size: 20px;
+  font-weight: 300;
+  color: #444;
+  margin: 0 0 18px;
+}
+
+.team-profile-contact {
+  font-size: 18px;
+  font-weight: 300;
+  color: #00549A;
+  margin: 0 0 26px;
+}
+
+.team-profile-contact a {
+  color: #00549A;
+  text-decoration: none;
+}
+.team-profile-contact a:hover {
+  text-decoration: underline;
+}
+
+.team-profile-bio p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 0 14px;
+}
+
+.team-profile-cta {
+  margin-top: 22px;
+}
+
+/* Mobile stacking for profile */
+@media (max-width: 900px) {
+  .team-profile {
+    flex-direction: column;
+    gap: 24px;
+    padding: 0 20px;
+  }
+
+  .team-profile-photo {
+    flex: none;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .team-profile-name {
+    font-size: 35px;
+  }
+
+  .team-profile-role {
+    font-size: 18px;
+  }
+
+  .team-profile-bio p {
+    font-size: 17px;
+  }
+}
+
+.is-job-search-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px 24px 32px;
+  border-radius: 24px;
+  background: #0070CA;          /* adjust to your brand purple */
+  color: #ffffff;
+  font-family: inherit;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.is-job-search-card * {
+  box-sizing: border-box;
+}
+
+.is-search-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  opacity: 0.9;
+}
+
+.is-search-icon {
+  font-size: 20px;
+}
+
+.is-search-label {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.is-search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #0070CA, #0070CA);
+}
+
+.is-field-icon {
+  font-size: 16px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.is-search-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+  padding-right: 22px;
+  outline: none;
+}
+
+/* custom arrow */
+.is-search-field::after {
+  content: "▾";
+  position: absolute;
+  right: 12px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* button */
+.is-search-submit {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: transparent;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease,
+              box-shadow 0.18s ease;
+}
+
+.is-search-submit:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+}
+
+.is-search-arrow {
+  font-size: 14px;
+}
+
+/* Force spacing between job cards */
+body .is-job-results {
+  margin-top: 32px !important;   /* space between purple search block and first card */
+}
+
+body .is-job-card + .is-job-card {
+  margin-top: 32px !important;   /* space between each card */
+}
+
+/* Space under the purple search block */
+body .is-job-search-card {
+  margin-bottom: 40px !important;  /* adjust to taste */
+}
+
+.cursor-gradient-heading {
+  font-size: 60px;
+  line-height: 1.1;
+  font-weight: 275;
+}
+
+.team-heading {
+  font-size: 45px !important;
+  line-height: 1.2;
+  font-weight: 275;
+}
+
+.team-gradient-banner {
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  padding: 80px 40px;
+  border-radius: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.isl-team-filter {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 32px;
+  max-width: 1200px;
+}
+
+.isl-team-filter input,
+.isl-team-filter select {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,84,154,0.25);
+  font-size: 15px;
+  font-family: inherit;
+  background: rgba(255,255,255,0.9);
+  min-width: 250px;
+}
+
+.isl-team-filter input:focus,
+.isl-team-filter select:focus {
+  border-color: #0070CA;
+  box-shadow: 0 0 0 2px rgba(0,112,202,0.15);
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .isl-team-filter {
+    flex-direction: column;
+  }
+  .isl-team-filter input,
+  .isl-team-filter select {
+    width: 100%;
+  }
+}
+
+.isl-team-filter-wrapper {
+  display: inline-block;
+  background: linear-gradient(135deg, #00549A, #0070CA);
+  padding: 16px 20px;
+  border-radius: 36px;
+}
+
+.isl-scroll-gallery {
+  overflow: hidden;
+  padding: 40px 0;
+  background: none;
+}
+
+/* center different-height cards vertically */
+.isl-scroll-track {
+  display: flex;
+  gap: 54px;
+  padding: 0 6vw;
+  will-change: transform;
+  align-items: center;   /* <-- important for staggered heights */
+}
+
+/* Card wrapper */
+.isl-card {
+  flex: 0 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  margin: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Base image style – HEIGHT VARIES */
+.isl-card img {
+  display: block;
+  width: 320px;      /* default width for “normal” landscape */
+  height: auto;      /* let height be whatever it needs to be */
+  object-fit: cover;
+  border-radius: 28px;
+}
+
+/* Portrait images – narrower so they end up taller */
+.isl-card img.portrait {
+  width: 240px;
+}
+
+/* Extra-wide landscape images – wider and therefore shorter */
+.isl-card img.landscape-wide {
+  width: 380px;
+}
+
+/* Mobile: everything a bit smaller */
+@media (max-width: 768px) {
+  .isl-card img {
+    width: 260px;
+  }
+
+  .isl-card img.portrait {
+    width: 200px;
+  }
+
+  .isl-card img.landscape-wide {
+    width: 300px;
+  }
+}
+
+/* Section wrapper */
+.isl-benefit-gallery {
+  overflow: hidden;
+  padding: 40px 0 60px;
+  background: none; /* deeper brand background helps white title pop */
+  font-family: gotham, sans-serif;
+}
+
+/* Heading — now white + centered */
+.isl-benefit-title {
+  max-width: 1100px;
+  margin: 0 auto 28px;
+  padding: 0 24px;
+  font-size: 28px;
+  font-weight: 300;
+  color: #333333;
+  text-align: center;
+}
+
+.isl-benefit-title span {
+  color: #0070ca;
+  font-weight: 300;
+}
+
+/* Horizontal track */
+.isl-benefit-track {
+  display: flex;
+  gap: 22px;
+  padding: 0 6vw;
+  will-change: transform;
+  align-items: stretch;
+}
+
+/* Cards — text centered */
+.isl-benefit-card {
+  flex: 0 0 320px;
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 26px 22px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;     /* centers vertically */
+  align-items: center;         /* centers horizontally */
+  text-align: center;          /* centers text inside */
+}
+
+.isl-benefit-card h3 {
+  font-size: 22px;
+  font-weight: 300;
+  margin-bottom: 12px;
+}
+
+.isl-benefit-card p {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 240px;
+}
+
+@media (max-width: 768px) {
+  /* force section full width */
+  .isl-benefit-gallery {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* make heading full width */
+  .isl-benefit-title {
+    width: 100%;
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+  }
+
+  /* track full width */
+  .isl-benefit-track {
+    width: 100%;
+    max-width: none;
+    padding: 0; /* remove side padding */
+    gap: 16px;
+  }
+
+  .isl-benefit-card {
+    flex: 0 0 260px;
+    border-radius: 18px;
+    padding: 20px 18px;
+  }
+}
+
+/* Force all text inside benefit cards to be white */
+.isl-benefit-card,
+.isl-benefit-card * {
+  color: #ffffff !important;
+  fill: #ffffff !important;     /* covers SVG icons if you add them later */
+}
+
+/* Tighten the code block itself */
+#block-yui_3_17_2_1_1764180074604_3132 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Tighten the inner content wrapper of that block */
+#block-yui_3_17_2_1_1764180074604_3132 .sqs-block-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Make sure the CTA inside isn’t adding extra external space */
+#block-yui_3_17_2_1_1764180074604_3132 .cta-gradient-banner.wide {
+  margin: 0 auto !important;   /* centered, no top/bottom margin */
+  padding: 28px 32px;          /* keep internal padding only */
+}
+
+/* ========== HEADER NAV UNDERLINE ANIMATION ========== */
+
+.header-nav .header-nav-item a,
+.sqs-navigation .nav-item a {
+  position: relative;
+  overflow: hidden;
+}
+
+/* the line */
+.header-nav .header-nav-item a::after,
+.sqs-navigation .nav-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0px; /* adjust if too low */
+  width: 100%;
+  height: 1px;   /* thin line */
+  background: currentColor; /* uses link text color */
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .65s ease;
+}
+
+/* hover animation */
+.header-nav .header-nav-item a:hover::after,
+.sqs-navigation .nav-item a:hover::after {
+  transform: scaleX(1);
+}
+
+/* FORCE team cards to render as real boxes (prevents display:contents overrides) */
+.team-gradient-banner a.hover-card,
+.team-gradient-banner .hover-card {
+  display: flex !important;
+  position: relative !important;
+  background: rgba(255,255,255,0.75) !important;
+  border: 1px solid rgba(255,255,255,0.45) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+}
+
+/* Restore proper team card layout */
+.team-gradient-banner a.hover-card,
+.team-gradient-banner .hover-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 16px !important;
+  width: 275px !important;
+  padding: 28px 28px 32px !important;
+  text-align: center !important;
+}
+
+/* Center the text properly */
+.team-gradient-banner .hover-text {
+  text-align: center !important;
+  align-items: center !important;
+}
+
+/* Ensure name/role don’t “slide” sideways */
+.team-gradient-banner .hover-text .name,
+.team-gradient-banner .hover-text .role {
+  width: 100%;
+  text-align: center !important;
+}
+
+/* =========================================================
+   TEAM CARDS — TRUE FULL-BLEED IMAGE (YOUR EXACT HTML)
+   Copy/Paste this entire block AFTER your existing team CSS.
+   This removes the inset look by:
+   - Removing any centering/gap behavior on the card
+   - Forcing the headshot to be block-level full width
+   - Removing any min/max width constraints
+   - Ensuring the IMG is not being constrained by align-items:center
+========================================================= */
+
+/* TEAM ROW (unchanged, but keep it clean) */
+.team-gradient-banner .team-row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* CARD */
+.team-gradient-banner .hover-card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* KEY FIX: stop centering that can visually “inset” the image */
+  align-items: stretch !important;
+
+  width: 275px;
+  padding: 0 !important;
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 18px;
+
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  text-decoration: none;
+
+  overflow: hidden !important;
+
+  transition:
+    transform .18s ease,
+    box-shadow .28s ease,
+    background .28s ease,
+    border-color .28s ease;
+}
+
+/* hover */
+.team-gradient-banner .hover-card:hover{
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(255,255,255,0.9);
+  box-shadow: 0 22px 55px rgba(0,0,0,0.22);
+}
+
+/* highlight ring */
+.team-gradient-banner .hover-card::before{
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    120% 120% at 30% 10%,
+    rgba(255,255,255,0.32) 0%,
+    rgba(255,255,255,0.05) 45%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.team-gradient-banner .hover-card:hover::before{
+  opacity: 1;
+}
+
+/* HEADSHOT — MUST BE FULL WIDTH */
+.team-gradient-banner .hover-card .headshot{
+  width: 100% !important;
+  height: 240px !important;          /* adjust as needed */
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: block !important;          /* prevents inline sizing weirdness */
+  flex: 0 0 auto !important;
+
+  border-radius: 18px 18px 0 0 !important;
+  overflow: hidden !important;
+
+  /* If anything was shrinking it */
+  max-width: none !important;
+  align-self: stretch !important;
+
+  box-shadow: none !important;
+  border: none !important;
+
+  /* kills tiny “inset” artifacts from inline formatting */
+  line-height: 0 !important;
+  font-size: 0 !important;
+}
+
+/* IMAGE — TRUE EDGE TO EDGE */
+.team-gradient-banner .hover-card .headshot img{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+
+  object-fit: cover !important;
+  object-position: center top !important;
+
+  border-radius: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  transform: none;
+}
+
+/* Hover zoom */
+.team-gradient-banner .hover-card:hover .headshot img{
+  transform: scale(1.04) !important;
+  transition: transform .35s ease !important;
+}
+
+/* TEXT */
+.team-gradient-banner .hover-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 22px 22px 26px;
+
+  color: #00549A;
+  text-align: center;
+  z-index: 3;
+
+  transition: transform .25s ease;
+}
+
+.team-gradient-banner .hover-text .name{
+  font-size: 26px;
+  font-weight: 300;
+  margin: 0 0 6px;
+}
+
+.team-gradient-banner .hover-text .role{
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.team-gradient-banner .hover-card:hover .hover-text{
+  transform: translateY(-2px);
+}
+
+/* OVERLAY */
+.team-gradient-banner .hover-overlay{
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left,
+    rgba(255,255,255,0.32),
+    rgba(255,255,255,0.08) 45%,
+    transparent 70%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  z-index: 1;
+}
+
+.team-gradient-banner .hover-card:hover .hover-overlay{
+  opacity: 1;
+}
+
+/* MOBILE */
+@media (max-width: 768px){
+  .team-gradient-banner .hover-card{
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .team-gradient-banner .hover-card .headshot{
+    height: 280px !important;
+  }
+}
+
+/* Section background safety */
+.team-gradient-banner{
+  background: none !important;
+  background-color: transparent !important;
+}
+
+/* =========================================================
+   TEAM CARDS — HARD OVERRIDE TO FORCE TRUE FULL BLEED
+   (Your exact HTML structure)
+   Paste this at the VERY BOTTOM of Custom CSS.
+========================================================= */
+
+/* 1) Force the card to have ZERO padding/gap and stretch children */
+.team-gradient-banner .team-row > a.hover-card.hover-card{
+  padding: 0 !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+/* Also catch any other way the anchor might be targeted */
+.team-gradient-banner a.hover-card.hover-card{
+  padding: 0 !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+/* 2) Make sure the headshot is literally full width and not auto-sized */
+.team-gradient-banner .team-row > a.hover-card > .headshot{
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+
+  height: 260px !important; /* adjust image height here */
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border-radius: 18px 18px 0 0 !important;
+  overflow: hidden !important;
+
+  line-height: 0 !important;
+  font-size: 0 !important;
+}
+
+/* 3) Force the img to fill the headshot completely */
+.team-gradient-banner .team-row > a.hover-card > .headshot > img{
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  object-fit: cover !important;
+  object-position: center top !important;
+
+  border-radius: inherit !important;
+}
+
+/* 4) Put your text area padding back (only here, not on the card) */
+.team-gradient-banner .team-row > a.hover-card > .hover-text{
+  padding: 22px 22px 26px !important;
+  text-align: center !important;
+}
+
+/* 5) Optional: hover zoom on image only */
+.team-gradient-banner .team-row > a.hover-card:hover > .headshot > img{
+  transform: scale(1.04) !important;
+  transition: transform .35s ease !important;
+}
+
+/* 6) Mobile */
+@media (max-width: 768px){
+  .team-gradient-banner .team-row > a.hover-card > .headshot{
+    height: 300px !important;
+  }
+}
+
+.direct-hire-metrics{
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 40px 24px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.direct-hire-metrics-left,
+.direct-hire-metrics-right{
+  width: 100%;
+}
+
+/* Make the two blue panels fill their columns on desktop */
+.direct-hire-metrics-left .is-testimonial-slider,
+.direct-hire-metrics-right .is-stats-section.shiny-stats{
+  width: 100%;
+  max-width: none;    /* overrides the 500px caps on desktop */
+  margin: 0;          /* overrides auto-centering */
+}
+
+/* Keep the slider visually centered within its panel */
+.direct-hire-metrics-left .is-testimonial-slider{
+  height: 100%;
+}
+
+/* Keep stats content from stretching too wide inside the right panel */
+.direct-hire-metrics-right .is-stats-grid{
+  width: 100%;
+  max-width: 560px;   /* adjust up/down if you want looser/tighter */
+  margin: 0 auto;
+}
+
+/* Optional: match panel heights more nicely if one side is taller */
+.direct-hire-metrics-right .is-stats-section.shiny-stats{
+  height: 100%;
+}
+
+/* Stack earlier than mobile so it doesn’t feel cramped on small laptops */
+@media (max-width: 980px){
+  .direct-hire-metrics{
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* =========================
+   FORCE EQUAL HEIGHT BLUE PANELS (DESKTOP ONLY)
+   ========================= */
+
+/* Parent grid must stretch children */
+.direct-hire-metrics {
+  align-items: stretch;
+}
+
+/* Make both columns stretch */
+.direct-hire-metrics-left,
+.direct-hire-metrics-right {
+  display: flex;
+}
+
+/* Make both blue panels fill their column */
+.direct-hire-metrics-left .is-testimonial-slider,
+.direct-hire-metrics-right .is-stats-section.shiny-stats {
+  flex: 1;
+  height: 100%;
+}
+
+/* Center testimonial content vertically */
+.direct-hire-metrics-left .is-testimonial-slider {
+ display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* was center */
+}
+
+/* Ensure slides wrapper participates in height */
+.direct-hire-metrics-left .is-slides {
+  position: relative;
+  min-height: 260px;
+}
+
+/* Keep dots pinned visually below content */
+.direct-hire-metrics-left .is-dots {
+  margin-top: 36px;
+}
+
+/* ==============================
+   Dual CTA Button Group (REFINED)
+============================== */
+
+.isl-dual-cta{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  padding:28px 24px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+/* Base button (forced match) */
+.isl-dual-cta .isl-cta-btn,
+.isl-dual-cta .isl-cta-btn:visited,
+.isl-dual-cta a.isl-cta-btn,
+.isl-dual-cta button.isl-cta-btn{
+  -webkit-appearance:none;
+  appearance:none;
+
+  position:relative;
+  min-width:200px;
+  padding:16px 28px;
+
+  text-align:center;
+  font-family:gotham, sans-serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+
+  border:0 !important;
+  border-radius:999px;
+
+  background-image: linear-gradient(135deg, #00549A 0%, #0070CA 100%) !important;
+  background-color: transparent !important;
+
+  color:#ffffff !important;
+  text-decoration:none;
+
+  box-shadow:none !important;
+  overflow:hidden;
+
+  transition:
+    color 0.35s ease;
+}
+
+/* White hover overlay (smooth fade) */
+.isl-dual-cta .isl-cta-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#ffffff
+  opacity:0;
+  transition:opacity 0.45s ease;
+  z-index:0;
+}
+
+/* Text above overlay */
+.isl-dual-cta .isl-cta-btn > *{
+  position:relative;
+  z-index:1;
+}
+
+/* --- FIX: keep the white overlay BEHIND the text --- */
+.isl-dual-cta .isl-cta-btn{
+  position: relative;
+  z-index: 0;            /* creates a stacking context */
+}
+
+/* white hover overlay sits between background and text */
+.isl-dual-cta .isl-cta-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#ffffff;
+  opacity:0;
+  transition:opacity 0.55s ease;  /* smoother */
+  z-index:-1;                     /* <-- KEY FIX */
+  pointer-events:none;
+}
+
+/* ensure any inner spans inherit the button color */
+.isl-dual-cta .isl-cta-btn,
+.isl-dual-cta .isl-cta-btn *{
+  color: inherit !important;
+}
+
+/* default text color */
+.isl-dual-cta .isl-cta-btn{
+  color:#ffffff !important;
+}
+
+/* hover text color (ALL states) */
+.isl-dual-cta .isl-cta-btn:hover,
+.isl-dual-cta .isl-cta-btn.is-active:hover,
+.isl-dual-cta .isl-cta-btn[aria-current="page"]:hover,
+.isl-dual-cta .isl-cta-btn[aria-current="true"]:hover{
+  color:#00549A !important;
+}
+
+/* hover overlay on (ALL states) */
+.isl-dual-cta .isl-cta-btn:hover::after,
+.isl-dual-cta .isl-cta-btn.is-active:hover::after,
+.isl-dual-cta .isl-cta-btn[aria-current="page"]:hover::after,
+.isl-dual-cta .isl-cta-btn[aria-current="true"]:hover::after{
+  opacity:1;
+}
+
+
+.isl-dual-cta .isl-cta-btn:hover,
+.isl-dual-cta .isl-cta-btn.is-active:hover,
+.isl-dual-cta .isl-cta-btn[aria-current="page"]:hover{
+  color:#00549A !important;
+}
+
+/* Kill any Squarespace junk layers */
+.isl-dual-cta .isl-cta-btn::before{
+  display:none !important;
+}
+
+/* Focus (clean, no shadow) */
+.isl-dual-cta .isl-cta-btn:focus-visible{
+  outline:none;
+}
+
+/* Mobile */
+@media (max-width:640px){
+  .isl-dual-cta{
+    flex-direction:column;
+    gap:14px;
+    padding:20px;
+  }
+
+  .isl-dual-cta .isl-cta-btn{
+    width:100%;
+  }
+}
+
+/* =========================================
+   TEAM CARDS — MOBILE: HORIZONTAL + COMPACT
+   Paste at VERY BOTTOM of Custom CSS
+========================================= */
+
+/* ---------- 1) Manual team cards (.isl-team-card) ---------- */
+@media (max-width: 900px) {
+
+  /* Keep cards horizontal (override your current column stack) */
+  .isl-team-card{
+    flex-direction: row !important;
+    align-items: stretch;
+    min-height: 140px !important;
+    border-radius: 16px;
+  }
+
+  /* Image becomes a fixed left column */
+  .isl-team-photo{
+    flex: 0 0 140px !important;
+    width: 140px !important;
+    min-height: 140px !important;
+    background-position: 50% 30% !important;
+    transform: none !important;
+  }
+
+  /* Tighten the content area */
+  .isl-team-body{
+    padding: 14px 14px !important;
+  }
+
+  /* Typography: smaller + tighter */
+  .isl-team-name{
+    font-size: 18px !important;
+    margin: 0 0 4px !important;
+    line-height: 1.15;
+  }
+
+  .isl-team-role{
+    font-size: 14px !important;
+    margin: 0 !important;
+    line-height: 1.25;
+  }
+
+  .isl-team-region{
+    font-size: 13px !important;
+    margin: 4px 0 8px !important;
+    line-height: 1.25;
+  }
+
+  .isl-team-meta{
+    font-size: 13px !important;
+    margin: 0 0 8px !important;
+    line-height: 1.35;
+  }
+
+  /* Keep "Read more" present but not adding height */
+  .isl-team-link{
+    margin-top: 6px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Extra-tight phones */
+@media (max-width: 480px){
+  .isl-team-photo{
+    flex-basis: 120px !important;
+    width: 120px !important;
+    min-height: 120px !important;
+  }
+  .isl-team-card{
+    min-height: 120px !important;
+  }
+}
+
+
+/* ---------- 2) Collection Team2 cards (.collection-team2 ...) ---------- */
+@media (max-width: 900px){
+
+  /* KEEP the card horizontal (override your current column rule) */
+  .collection-team2 .summary-item > a{
+    flex-direction: row !important;
+    align-items: stretch;
+  }
+
+  /* Make the image a fixed landscape column */
+  .collection-team2 .summary-thumbnail-outer-container,
+  .collection-team2 .summary-thumbnail{
+    flex: 0 0 140px !important;
+    min-width: 140px !important;
+    height: 140px !important;
+  }
+
+  /* Tighten the content padding */
+  .collection-team2 .summary-content{
+    padding: 14px 14px !important;
+  }
+
+  /* Smaller type */
+  .collection-team2 .summary-title{
+    font-size: 18px !important;
+    margin: 0 0 4px !important;
+    line-height: 1.15;
+  }
+
+  .collection-team2 .summary-excerpt p{
+    font-size: 13px !important;
+    margin: 0 0 6px !important;
+    line-height: 1.3;
+  }
+
+  .collection-team2 .summary-read-more-link{
+    font-size: 13px !important;
+    margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 480px){
+  .collection-team2 .summary-thumbnail-outer-container,
+  .collection-team2 .summary-thumbnail{
+    flex-basis: 120px !important;
+    min-width: 120px !important;
+    height: 120px !important;
+  }
+}
+
+/* =========================================
+   TEAM CARDS — FULL CARD CLICKABLE
+========================================= */
+
+/* Manual team cards */
+.isl-team-card{
+  cursor: pointer;
+}
+
+/* Make sure nothing blocks the parent link */
+.isl-team-card *{
+  pointer-events: none;
+}
+
+/* EXCEPTION: allow internal links if needed later */
+.isl-team-card a{
+  pointer-events: auto;
+}
+
+/* Make name look like a primary link */
+.isl-team-name{
+  text-decoration: none;
+}
+
+/* Optional: soften "Read more" so it’s not the only obvious link */
+.isl-team-link{
+  opacity: 0.7;
+}
+
+.isl-team-card:hover .isl-team-name{
+  color: #0070CA;
+}
+
+/* Collection team cards — reinforce full click */
+.collection-team2 .summary-item > a{
+  cursor: pointer;
+}
+
+/* Ensure no inner element blocks clicks */
+.collection-team2 .summary-item > a *{
+  pointer-events: none;
+}
+
+/* Subtle tap feedback on mobile */
+@media (max-width: 900px){
+  .isl-team-card:active,
+  .collection-team2 .summary-item:active{
+    transform: scale(0.985);
+  }
+}
+
+/* =========================================
+   Team contact buttons – force consistent look
+========================================= */
+
+.team-profile-contact-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin: 0 0 32px;
+}
+
+/* Base: make BOTH anchors behave like your ISL buttons */
+.team-profile-contact-buttons a{
+  -webkit-appearance:none;
+  appearance:none;
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 22px;
+  min-width:220px;
+  border-radius:12px;
+
+  font-family:gotham, sans-serif;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  text-decoration:none !important;
+
+  cursor:pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
+}
+
+/* Primary (Email) */
+.team-profile-contact-buttons a.isl-btn-soft{
+  background:#ffffff;
+  color:#00549A;
+  border:1px solid rgba(0,84,154,.45);
+  box-shadow:0 10px 26px rgba(0,0,0,.10);
+}
+
+.team-profile-contact-buttons a.isl-btn-soft:hover{
+  transform: translateY(-1px);
+  border-color: rgba(0,84,154,.45);
+}
+
+/* Outline (LinkedIn) – same shape, same type, just outlined */
+.team-profile-contact-buttons a.isl-btn-outline{
+  background:transparent;
+  color:#00549A;
+  border:1px solid rgba(0,84,154,.45);
+  box-shadow:0 10px 26px rgba(0,0,0,.08);
+}
+
+.team-profile-contact-buttons a.isl-btn-outline:hover{
+  background:#ffffff;
+  transform: translateY(-1px);
+  border-color: rgba(0,84,154,.55);
+}
+
+/* Mobile */
+@media (max-width:640px){
+  .team-profile-contact-buttons{ flex-direction:column; }
+  .team-profile-contact-buttons a{ width:85%; min-width:0; }
+}
+
+.team-profile-phone{
+  margin-bottom: 22px;
+}
+
+@media (max-width: 640px){
+  .team-profile-phone{
+    margin-bottom: 18px;
+  }
+}
+
+/* ==============================
+   Team Filter – Mobile Refinement
+============================== */
+
+@media (max-width: 640px){
+
+  .isl-team-filter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .isl-team-filter input,
+  .isl-team-filter select{
+    width: 100%;
+    max-width: 320px; /* controls how small they feel */
+  }
+}
+
+/* Let the slide area take available height and center ONLY the text */
+.direct-hire-metrics-left .is-slides{
+  flex: 1;                 /* key */
+  min-height: 320px;       /* bump from 260 */
+  display: flex;
+  align-items: center;     /* centers quote vertically inside the slide area */
+}
+
+/* Dots stay at the bottom and never overlap text */
+.direct-hire-metrics-left .is-dots{
+  margin-top: 18px;        /* tighten spacing */
+  flex: 0 0 auto;
+}
+
+/* 
+
+.team-gradient-banner .team-row{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  flex-wrap: nowrap;
+}
+
+/* Keep all team cards the same height */
+.team-gradient-banner .hover-text{
+  min-height: 108px;   /* adjust 110–130 until it matches perfectly */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ============================
+   TEAM CARDS — MOBILE FIX
+   Paste at VERY BOTTOM
+============================ */
+@media (max-width: 768px){
+
+  .team-gradient-banner .team-row{
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 18px !important;
+    width: min(560px, calc(100% - 32px)) !important;
+  }
+
+  .team-gradient-banner .hover-card{
+    width: 100% !important;
+    max-width: 520px !important;
+    flex: 0 1 520px !important;   /* allow it to grow/shrink properly */
+  }
+
+  .team-gradient-banner .headshot{
+    height: 260px !important;
+  }
+
+  .team-gradient-banner .headshot.headshot-empty{
+    height: 260px !important;
+  }
+}
