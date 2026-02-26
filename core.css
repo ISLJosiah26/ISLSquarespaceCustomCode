@@ -1,0 +1,819 @@
+/* =====================================
+   Integrated Staffing — site.css
+   Single source of truth (layered)
+===================================== */
+
+@layer reset, base, layout, components, utilities, overrides;
+
+/* ---------- RESET ---------- */
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  img, svg, video, canvas { display: block; max-width: 100%; }
+}
+
+/* ---------- BASE (tokens + type defaults) ---------- */
+@layer base {
+  :root{
+    --isl-navy:#003D72;
+    --isl-primary:#00549A;
+    --isl-accent:#0070CA;
+    --isl-accent-bright:#3AAAE8;
+
+    --bg:#FAFBFC;
+    --card:#FFFFFF;
+    --border:rgba(0,0,0,.06);
+    --shadow:0 2px 8px rgba(0,0,0,.04), 0 12px 24px rgba(0,0,0,.06);
+
+    --text:#0b1b2b;
+    --muted:rgba(11,27,43,.72);
+    --radius-1:12px;
+    --radius-2:18px;
+    --radius-3:28px;
+
+        /* ui */
+    --isl-radius-btn: 999px; /* pill */
+    --isl-btn-font: gotham, "Gotham SSm", "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+    /* shadows */
+    --isl-shadow-btn: 0 10px 24px rgba(0,0,0,0.14);
+    --isl-shadow-btn-hover: 0 14px 32px rgba(0,0,0,0.18);
+
+    /* focus ring */
+    --isl-focus: 0 0 0 3px rgba(0,112,202,0.22);
+  }
+
+    /* Make buttons behave consistently across a/btn */
+  a.isl-btn{ text-decoration: none; }
+} 
+
+  body{
+    color: var(--text);
+  }
+
+  /* Optional: if Gotham is loaded site-wide, this helps consistency */
+  body, button, input, select, textarea{
+    font-family: gotham, "Gotham SSm", "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+}
+
+/* ---------- LAYOUT (shared wrappers etc.) ---------- */
+@layer layout {
+  .isl-container{
+    width: min(1200px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+}
+
+/* ---------- COMPONENTS ---------- */
+@layer components {
+
+/* ================================
+   ISL BUTTON SYSTEM (canonical)
+================================ */
+
+.isl-btn,
+a.isl-btn,
+button.isl-btn{
+  -webkit-appearance: none;
+  appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 32px;
+  font-family: inherit;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+
+  border-radius: 999px;
+  border: 1px solid transparent;
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    opacity .18s ease;
+}
+
+/* Consistent hover/tap for ALL buttons */
+.isl-btn:hover{ transform: translateY(-2px); }
+.isl-btn:active{ transform: translateY(0); }
+
+/* Focus */
+.isl-btn:focus{ outline: none; }
+.isl-btn:focus-visible{
+  box-shadow: 0 0 0 3px rgba(0,112,202,0.22);
+}
+
+/* Disabled */
+.isl-btn[disabled],
+button.isl-btn:disabled{
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Primary gradient */
+.isl-btn-primary{
+  background: linear-gradient(135deg, var(--isl-primary), var(--isl-accent));
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Cursor-follow shine */
+.isl-btn-primary::after{
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.25),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity .75s ease;
+}
+.isl-btn-primary:hover::after{ opacity: 1; }
+
+/* Outline (for dark/gradient backgrounds) */
+.isl-btn-outline{
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,0.9);
+}
+.isl-btn-outline:hover{
+  background: rgba(255,255,255,0.12);
+}
+
+/* Soft / white */
+.isl-btn-soft{
+  background: #ffffff;
+  color: var(--isl-primary);
+  border-color: rgba(0,84,154,0.15);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+.isl-btn-soft:hover{
+  box-shadow: 0 12px 26px rgba(0,0,0,0.18);
+}
+
+/* Optional: outline for WHITE backgrounds (so outline isn’t white-on-white) */
+.isl-btn-outline-dark{
+  background: transparent;
+  color: var(--isl-primary);
+  border-color: rgba(0,84,154,0.35);
+}
+.isl-btn-outline-dark:hover{
+  background: rgba(0,84,154,0.06);
+}
+
+/* Sizes */
+.isl-btn-sm{ padding: 10px 24px; font-size: 13px; }
+.isl-btn-lg{ padding: 16px 42px; font-size: 15px; }
+
+  /* ================================
+     Active/current page state
+  ================================ */
+
+  .isl-btn[aria-current="page"],
+  .isl-btn[aria-current="true"]{
+    transform: none;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.14);
+  }  
+
+/* ================================
+   Dual CTA layout (layout-only)
+   Buttons inside should just use .isl-btn + variant
+================================ */
+
+.isl-dual-cta{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  padding:28px 24px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+@media (max-width:640px){
+  .isl-dual-cta{
+    flex-direction:column;
+    gap:14px;
+    padding:20px;
+  }
+  .isl-dual-cta .isl-btn{ width:100%; }
+}
+
+/* ==============================
+   FOOTER (canonical)
+============================== */
+@layer components {
+  .isl-footer{
+    background: var(--isl-footer-bg, var(--isl-accent));
+    color: #fff;
+    padding: 18px 0;
+  }
+
+  .isl-footer-inner{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 28px;
+
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, 520px) 1fr;
+    align-items: center;
+    gap: 18px;
+  }
+
+  /* Left column */
+  .isl-footer-left{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .isl-footer-copy{
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
+
+  .isl-footer-badges{
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .isl-footer-badge{
+    height: 58px;
+    width: auto;
+    display: block;
+  }
+
+  /* Center search */
+  .isl-footer-search{
+    display: flex;
+    justify-content: center;
+  }
+
+  .isl-footer-search-form input{
+    width: 100%;
+    height: 44px;
+    border-radius: 999px;
+    border: 0;
+    padding: 0 18px;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    background: rgba(255,255,255,0.95);
+    color: var(--text, #0b1b2b);
+  }
+
+  .isl-footer-search-form input::placeholder{
+    color: rgba(11,27,43,0.55);
+  }
+
+  /* Right social */
+  .isl-footer-social{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .isl-social{
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+
+    background: none;
+    border-radius: 0;
+
+    transition: transform .18s ease, opacity .18s ease;
+  }
+
+  .isl-social svg{
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+    opacity: 0.9;
+  }
+
+  .isl-social:hover{
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  /* Mobile: stacked order (social > search > badges > copyright) */
+  @media (max-width: 768px){
+    .isl-footer-inner{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .isl-footer-social{
+      order: 1;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .isl-footer-search{
+      order: 2;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .isl-footer-search-form{
+      width: min(520px, 100%);
+    }
+
+    .isl-footer-left{
+      order: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .isl-footer-badges{ order: 1; justify-content: center; }
+    .isl-footer-copy{ order: 2; }
+
+    .isl-footer-badge{
+      height: 52px;
+    }
+  }
+}
+
+ /* ================================
+     CTA GRADIENT BANNERS (clean)
+  ================================ */
+
+  .cta-gradient-banner{
+    --cta-radius: 28px;
+    --cta-pad-y: 48px;
+    --cta-pad-x: 80px;
+
+    width: 100%;
+    max-width: 1400px;
+    margin: 60px auto;
+
+    padding: var(--cta-pad-y) var(--cta-pad-x);
+    border-radius: var(--cta-radius);
+
+    background: linear-gradient(
+      135deg,
+      rgba(0,84,154,0.95),
+      rgba(0,112,202,0.95)
+    );
+
+    font-family: inherit;
+  }
+
+  /* Typography */
+  .cta-gradient-banner .cta-title{
+    margin: 0;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 1.15;
+    color: #fff;
+  }
+
+  .cta-gradient-banner .cta-subtext{
+    margin: 12px 0 0;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.92);
+  }
+
+  /* ================================
+     WIDE (left text, right button)
+  ================================ */
+
+  .cta-gradient-banner.wide{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .cta-gradient-banner.wide .cta-left{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 62%;
+  }
+
+  .cta-gradient-banner.wide .cta-right{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  /* ================================
+     DUAL (centered stacked)
+  ================================ */
+
+  .cta-gradient-banner.dual{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 22px;
+
+    --cta-pad-y: 44px;
+    --cta-pad-x: 40px;
+  }
+
+  .cta-gradient-banner.dual .cta-dual-text{
+    max-width: 980px;
+  }
+
+  .cta-gradient-banner.dual .cta-dual-buttons{
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Keep buttons balanced inside banner */
+  .cta-gradient-banner.dual .isl-btn.isl-btn-lg{
+    padding: 12px 22px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    min-width: 170px;
+  }
+
+  /* ================================
+     Responsive
+  ================================ */
+
+  @media (max-width: 900px){
+
+    .cta-gradient-banner{
+      --cta-pad-y: 34px;
+      --cta-pad-x: 22px;
+      margin: 36px auto;
+      border-radius: 22px;
+    }
+
+    .cta-gradient-banner .cta-title{
+      font-size: 30px;
+    }
+
+    .cta-gradient-banner .cta-subtext{
+      font-size: 17px;
+    }
+
+    .cta-gradient-banner.wide{
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+
+    .cta-gradient-banner.wide .cta-left{
+      max-width: 100%;
+      align-items: center;
+    }
+
+    .cta-gradient-banner.wide .cta-right{
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 520px){
+    .cta-gradient-banner.dual .cta-dual-buttons{
+      width: 100%;
+      gap: 12px;
+    }
+
+    .cta-gradient-banner.dual .isl-btn{
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+
+}
+
+/* =========================
+     ACCORDION (canonical)
+     Works for:
+     - .locations-accordion .acc-item/.acc-title/.acc-content
+     - .hover-accordion .item/.item-title/.item-content
+  ========================== */
+
+  /* Shared wrapper */
+  .isl-accordion,
+  .locations-accordion,
+  .hover-accordion{
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    font-family: inherit;
+  }
+
+  /* Shared item */
+  .isl-accordion .acc-item,
+  .locations-accordion .acc-item,
+  .hover-accordion .item{
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.14);
+  }
+
+  /* Shared title row */
+  .isl-accordion .acc-title,
+  .locations-accordion .acc-title,
+  .hover-accordion .item-title{
+    margin: 0;
+    padding: 10px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+
+    font-size: 32px;
+    font-weight: 275;
+    line-height: 1.2;
+
+    color: var(--isl-primary);
+    transition: color .25s ease;
+  }
+
+  .isl-accordion .acc-title:hover,
+  .locations-accordion .acc-title:hover,
+  .hover-accordion .item-title:hover{
+    color: var(--isl-accent);
+  }
+
+  /* Chevron */
+  .isl-accordion .acc-title::after,
+  .locations-accordion .acc-title::after,
+  .hover-accordion .item-title::after{
+    content: "›";
+    font-size: 30px;
+    transform: rotate(90deg);
+    opacity: .45;
+    margin-top: 2px;
+    transition: transform .25s ease, opacity .25s ease;
+  }
+
+  /* Underline */
+  .isl-accordion .acc-title::before,
+  .locations-accordion .acc-title::before,
+  .hover-accordion .item-title::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 0;
+    background: var(--isl-accent);
+    transition: width .25s ease;
+  }
+
+  /* Open state (supports both class names) */
+  .isl-accordion .acc-item.is-open .acc-title::after,
+  .locations-accordion .acc-item.active .acc-title::after,
+  .hover-accordion .item.active .item-title::after{
+    transform: rotate(270deg);
+    opacity: 1;
+  }
+
+  .isl-accordion .acc-item.is-open .acc-title::before,
+  .locations-accordion .acc-item.active .acc-title::before,
+  .hover-accordion .item.active .item-title::before{
+    width: 100%;
+  }
+
+  /* Content panel (closed) */
+  .isl-accordion .acc-content,
+  .locations-accordion .acc-content,
+  .hover-accordion .item-content{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    pointer-events: none;
+
+    transition: max-height .45s ease, opacity .35s ease, margin-top .35s ease;
+  }
+
+  /* Content panel (open) */
+  .isl-accordion .acc-item.is-open .acc-content,
+  .locations-accordion .acc-item.active .acc-content,
+  .hover-accordion .item.active .item-content{
+    max-height: 1400px;
+    opacity: 1;
+    margin-top: 14px;
+    pointer-events: auto;
+  }
+
+  /* Content typography */
+  .isl-accordion .acc-content p,
+  .locations-accordion .acc-content p,
+  .hover-accordion .item-content p{
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(11, 27, 43, 0.82);
+  }
+
+  /* Optional: if you have <strong> inside accordion content */
+  .isl-accordion .acc-content strong,
+  .locations-accordion .acc-content strong,
+  .hover-accordion .item-content strong{
+    font-weight: 500;
+  }
+
+  /* Map block (locations accordion) */
+  .locations-accordion .acc-map iframe{
+    width: 100%;
+    height: 260px;
+    border: 0;
+    border-radius: 12px;
+    margin-top: 10px;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px){
+    .isl-accordion .acc-title,
+    .locations-accordion .acc-title,
+    .hover-accordion .item-title{
+      font-size: 28px;
+    }
+
+    .isl-accordion .acc-content p,
+    .locations-accordion .acc-content p,
+    .hover-accordion .item-content p{
+      font-size: 16px;
+    }
+  }
+
+/* =========================
+     HOVER ACCORDION (now click accordion)
+     HTML: .hover-accordion > .item > .item-title + .item-content
+  ========================== */
+
+  .hover-accordion{
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+    font-family: inherit;
+  }
+
+  .hover-accordion .item{
+    padding-bottom:25px;
+    border-bottom:1px solid rgba(0,0,0,0.10);
+  }
+
+  .hover-accordion .item-title{
+    font-size:30px;
+    font-weight:300;
+    color: var(--isl-accent);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap: 10px;
+    position:relative;
+    cursor:pointer;
+    user-select:none;
+    line-height:1.25;
+    transition: color .25s ease;
+  }
+
+  .hover-accordion .item-title:hover{
+    color: var(--isl-accent-bright, #3AAAE8);
+  }
+
+  /* Chevron */
+  .hover-accordion .item-title::after{
+    content:"›";
+    font-size:30px;
+    transform: rotate(90deg);
+    opacity:.45;
+    transition: transform .25s ease, opacity .25s ease;
+    margin-top: 2px;
+  }
+
+  /* Underline */
+  .hover-accordion .item-title::before{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    height:2px;
+    width:0;
+    background: var(--isl-accent);
+    transition: width .25s ease;
+  }
+
+  /* Content hidden by default */
+  .hover-accordion .item-content{
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    pointer-events:none;
+    margin-top:0;
+    transition: max-height .45s ease, opacity .35s ease, margin-top .35s ease;
+  }
+
+  .hover-accordion .item-content p{
+    margin:0;
+    font-size:20px;
+    font-weight:300;
+    line-height:1.6;
+    color: rgba(11,27,43,0.78);
+  }
+
+  /* OPEN state */
+  .hover-accordion .item.active .item-title::after{
+    transform: rotate(270deg);
+    opacity:1;
+  }
+  .hover-accordion .item.active .item-title::before{
+    width:100%;
+  }
+  .hover-accordion .item.active .item-content{
+    max-height: 320px;  /* bump if any paragraph is longer */
+    opacity:1;
+    pointer-events:auto;
+    margin-top:20px;
+  }
+
+  /* Mobile */
+  @media (max-width:768px){
+    .hover-accordion .item-title{ font-size:28px; }
+    .hover-accordion .item-content p{ font-size:17px; }
+    .hover-accordion .item-title::after{ margin-top: 4px; }
+  }
+
+}
+  
+/* ---------- UTILITIES (small helpers) ---------- */
+@layer utilities {
+  /* Screen reader only */
+  .isl-sr-only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ---------- OVERRIDES (Squarespace-specific “make it behave”) ---------- */
+@layer overrides {
+  /* Tighten code block spacing (you had this; keep it centralized) */
+  .sqs-block-code{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* WARNING: This is very broad. We’ll likely narrow/remove it later.
+     Keeping it for now to avoid layout changes while migrating. */
+  .sqs-section .content-wrapper{
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+}
