@@ -3689,3 +3689,619 @@ body .is-job-search-card {
     height: 260px !important;
   }
 }
+
+<!-- ==============================
+Home page slider
+============================== */
+
+/* Make sure the slider is the containing box */
+.industry-slider{
+  position: relative;
+  overflow: hidden;
+}
+
+/* Make sure each slide truly fills the entire slider */
+.industry-slide{
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* FULL overlay covers the entire slide */
+.industry-slide::before{
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.65); /* adjust darker/lighter here */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content sits above the overlay */
+.industry-overlay{
+  position: relative;
+  z-index: 2;
+  background: none !important; /* kills any partial panel overlay */
+}
+
+.industry-title {
+  font-size: 46px;
+  font-weight: 300;
+  margin-bottom: 16px;
+}
+
+.industry-details p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* Dots */
+.industry-dots {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 5;
+}
+
+.industry-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.45);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.industry-dot:hover {
+  transform: scale(1.25);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.industry-dot.is-active {
+  background: #ffffff;
+  transform: scale(1.4);
+}
+
+/* ==============================
+   Mobile
+============================== */
+@media (max-width: 768px) {
+  .industry-slider {
+    height: 420px;
+  }
+
+  .industry-overlay {
+    padding: 60px 32px 120px; /* bottom space reserved for dots */
+  }
+
+  .industry-title {
+    font-size: 30px;
+  }
+
+  .industry-actions {
+    margin-bottom: 16px;
+  }
+
+  .industry-dots {
+    bottom: 18px;
+    z-index: 20;
+  }
+}
+
+<!-- ==============================
+Footer
+============================== */
+/* === Footer base === */
+.isl-footer{
+  background: #0070CA;
+  color: #fff;
+  padding: 18px 0;
+}
+
+.isl-footer-inner{
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 520px) 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+/* === Left === */
+.isl-footer-left{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Force Gotham */
+.isl-footer-copy{
+  font-family: gotham, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* Larger certification logos */
+.isl-footer-badges{
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.isl-footer-badge{
+  height: 58px;          /* ⬅️ increased size */
+  width: auto;
+  display: block;
+}
+
+/* === Center search === */
+.isl-footer-search{
+  display: flex;
+  justify-content: center;
+}
+
+.isl-footer-search-form input{
+  width: 100%;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0 18px;
+  font-family: gotham, sans-serif;
+  font-size: 15px;
+  background: rgba(255,255,255,0.95);
+  color: #0b1b2b;
+}
+
+.isl-footer-search-form input::placeholder{
+  color: rgba(11,27,43,0.55);
+}
+
+/* === Social icons (NO background tiles) === */
+.isl-footer-social{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+}
+
+.isl-social{
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: none;          /* ⬅️ removes blue squares */
+  border-radius: 0;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.isl-social svg{
+  width: 28px;               /* slightly larger icons */
+  height: 28px;
+  fill: #fff;
+  opacity: 0.9;
+}
+
+.isl-social:hover{
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+/* Screen reader utility */
+.isl-sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 768px){
+
+  /* Switch from grid to stacked layout so we can control order cleanly */
+  .isl-footer-inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  /* 1) Social icons at the top */
+  .isl-footer-social{
+    order: 1;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* 2) Search bar next */
+  .isl-footer-search{
+    order: 2;
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Make the search bar a nice centered width on mobile */
+  .isl-footer-search-form{
+    width: min(520px, 100%);
+  }
+
+  /* 3) Badges/logos next, then 4) copyright last */
+  .isl-footer-left{
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+
+  /* Swap the internal order inside the "left" column */
+  .isl-footer-badges{ order: 1; justify-content: center; }
+  .isl-footer-copy{ order: 2; }
+
+  /* Optional: tighten logo sizing a bit so they don’t dominate smaller screens */
+  .isl-footer-badge{
+    height: 52px;
+  }
+}
+
+/* ==============================
+   COMPACT DUAL CTA BANNER
+============================== */
+
+.cta-gradient-banner.dual{
+  padding: 40px 26px;          /* was likely much bigger */
+  border-radius: 22px;         /* slightly tighter */
+  gap: 16px;                   /* less breathing room */
+}
+
+/* tighten text block spacing */
+.cta-gradient-banner.dual .cta-dual-text{
+  margin: 0;
+}
+
+.cta-gradient-banner.dual .cta-title{
+  margin: 0 0 10px;             /* kill big default margins */
+  line-height: 1.15;
+  font-size: 38px;             /* reduce headline size */
+  font-weight: 300;
+}
+
+.cta-gradient-banner.dual .cta-subtext{
+  margin: 0;                   /* kill default p margin */
+  font-size: 18px;
+  line-height: 1.35;
+  opacity: .95;
+  font-weight: 500;
+}
+
+/* buttons: remove "lg" sizing impact without changing your HTML */
+.cta-gradient-banner.dual .cta-dual-buttons{
+  margin-top: 10px;
+  gap: 16px;                   /* tighten spacing between buttons */
+}
+
+/* override the "lg" padding/font if it's making them huge */
+.cta-gradient-banner.dual .isl-btn.isl-btn-lg{
+  padding: 12px 22px;
+  font-size: 13px;
+  letter-spacing: .08em;
+  min-width: 170px;            /* keep them balanced, but smaller */
+}
+
+/* responsive */
+@media (max-width: 768px){
+  .cta-gradient-banner.dual{
+    padding: 20px 18px;
+    border-radius: 18px;
+  }
+
+  .cta-gradient-banner.dual .cta-title{
+    font-size: 26px;
+  }
+
+  .cta-gradient-banner.dual .cta-subtext{
+    font-size: 16px;
+  }
+
+  .cta-gradient-banner.dual .isl-btn.isl-btn-lg{
+    width: 100%;
+    min-width: 0;
+    padding: 12px 16px;
+  }
+}
+
+/* ==============================
+ Value Cards
+============================== */
+
+/* SECTION */
+.values-section{
+  max-width:1200px;
+  margin:10px auto;
+  padding:0 22px;
+  font-family:gotham,sans-serif;
+}
+
+/* STACK WRAP */
+.values-stack{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px 0;
+}
+
+/* CARD (same look as before) */
+.value-card{
+  aspect-ratio:1 / 1;
+  width:min(260px, 22vw);
+  min-width:210px;
+  border-radius:22px;
+  overflow:hidden;
+
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+
+  padding:26px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+
+  text-align:center;
+
+  /* stacked behavior */
+  position:relative;
+  z-index:1;
+  transform:translateY(0) scale(1);
+  transition:
+    transform .22s ease,
+    z-index 0s linear .22s,
+    background .22s ease;
+}
+
+/* overlap like a deck (each next card slides over the previous) */
+.value-card + .value-card{
+  margin-left:22px;
+}
+
+/* POP TO SURFACE ON HOVER (no shadow, no border) */
+.value-card:hover{
+  z-index:10;
+  transform:translateY(-10px) scale(1.03);
+  background:rgba(255,255,255,.24);
+  transition:
+    transform .22s ease,
+    z-index 0s linear 0s,
+    background .22s ease;
+}
+
+/* TEXT */
+.value-title,
+.value-desc{
+  margin:0;
+  color:#3a3a3a;
+  transition:color .18s ease;
+}
+
+.value-title{
+  margin:0;
+  color:#00549A; /* brand blue */
+  font-size:30px;
+  font-weight:300;
+  letter-spacing:.01em;
+  line-height:1.15;
+  transition:color .18s ease;
+}
+
+.value-desc{
+  margin:0;
+  color:#3a3a3a; /* dark grey body copy */
+  font-size:16.5px;
+  font-weight:300;
+  line-height:1.6;
+}
+
+/* HOVER TEXT COLOR */
+.value-card:hover .value-title{
+  color:#0070CA; /* lighter blue on hover */
+}
+
+/* RESPONSIVE: reduce overlap before stacking vertically */
+@media(max-width:1100px){
+  .value-card{width:min(280px, 30vw);}
+  .value-card + .value-card{margin-left:-52px;}
+}
+@media(max-width:820px){
+  .value-card + .value-card{margin-left:-34px;}
+}
+
+/* MOBILE: stack vertically (no overlap) */
+@media(max-width:640px){
+  .values-stack{
+    flex-direction:column;
+    gap:16px;
+    align-items:stretch;
+  }
+  .value-card{
+    width:100%;
+    min-width:0;
+    min-height:210px;
+  }
+  .value-card + .value-card{margin-left:0;}
+  .value-title{font-size:24px;}
+  .value-desc{font-size:15.5px;}
+}
+
+/* ==============================
+ Direct hire team cards
+============================== */
+
+.headshot-empty{
+  background: linear-gradient(135deg, #f4f6f9, #e9edf3);
+
+  height: 260px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.headshot-initials{
+  transform: translateY(99px) !important;
+  font-family: "Gotham", "Montserrat", sans-serif;
+  font-size: 42px;
+  font-weight: 500;
+  color: rgba(0,0,0,0.35);
+
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+
+  display: block;
+}
+.team-gradient-banner .team-row{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  flex-wrap: nowrap;
+
+  /* Keep all team cards the same height */
+.team-gradient-banner .hover-text{
+  min-height: 118px;   /* adjust 110–130 until it matches perfectly */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ==============================
+ Direct hire CTA blocks
+============================== */
+   
+.isl-contact-cta{
+  max-width: 920px;
+  margin: 40px auto;
+  padding: 0 164px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+
+  font-family: gotham, sans-serif;
+}
+
+/* Base block */
+.isl-contact-block{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  aspect-ratio: 1 / 1;
+  max-width: 220px;
+  min-height: 140px;
+  padding: 32px;
+
+  text-decoration: none;
+
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 22px;
+
+  color: #0070CA;
+
+  transition:
+    transform .92s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+
+  overflow: hidden;
+}
+
+/* Gradient overlay */
+.isl-contact-block::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #00549A 0%, #0070CA 100%);
+  opacity: 0;
+  transition: opacity .72s ease;
+  z-index: 0;
+}
+
+/* Text */
+.isl-contact-label{
+  position: relative;
+  z-index: 1;
+
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  line-height: 1;
+}
+
+/* Hover / focus */
+.isl-contact-block:hover,
+.isl-contact-block:focus-visible{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px rgba(0,0,0,0.14);
+  border-color: rgba(0,112,202,0.35);
+  outline: none;
+}
+
+.isl-contact-block:hover::before,
+.isl-contact-block:focus-visible::before{
+  opacity: 1;
+}
+
+.isl-contact-block:hover,
+.isl-contact-block:hover .isl-contact-label,
+.isl-contact-block:focus-visible,
+.isl-contact-block:focus-visible .isl-contact-label{
+  color: #fff;
+}
+
+/* Active (mobile tap) */
+.isl-contact-block:active{
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* Mobile */
+@media (max-width: 480px){
+  .isl-contact-cta{
+    padding: 0 16px;
+    gap: 55px;
+    justify-content: center;
+  }
+
+  .isl-contact-block{
+    justify-self: center;
+    min-height: 100px;
+  }
+
+  .isl-contact-label{
+    font-size: 22px;
+  }
+}
