@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ISL Job Detail Executive Preview</title>
+  <style>
+    body { margin: 0; padding: 24px; font-family: Arial, sans-serif; background:#eef3f9; }
+    .note { max-width: 960px; margin: 0 auto 16px; color:#1b2d45; }
+    iframe { width: 100%; max-width: 1000px; height: 1850px; border:0; border-radius:12px; display:block; margin:0 auto; background:#fff; }
+  </style>
+</head>
+<body>
+  <div class="note">
+    <h2>ISL Executive Job Detail Preview</h2>
+    <p>This preview injects mock job data and renders <code>assets/isl-job-detail-executive.html</code> exactly as it would appear in production.</p>
+  </div>
+  <iframe id="preview" title="ISL job detail preview"></iframe>
+
+  <script>
+    (async function () {
+      const res = await fetch('./isl-job-detail-executive.html');
+      const block = await res.text();
+
+      const mockPrefix = `
+<script>
+  history.replaceState({}, '', location.pathname + '?id=ABC123');
+  const mockJobs = [{
+    ReqID: 'ABC123',
+    Name: 'Senior Operations Manager',
+    JobType: 'Full Time',
+    Category: 'Operations',
+    Department: 'Main',
+    JobCity: 'Halifax',
+    JobState: 'NS',
+    PayActual: '',
+    PayMin: '85000',
+    PayMax: '105000',
+    PostDate: '2026-05-01',
+    PostId: '10001',
+    PostId20: '10001A',
+    JobDesc_HTML: '<p>Integrated Staffing is seeking a strategic leader to optimize staffing operations across Atlantic Canada.</p><h3>Responsibilities</h3><ul><li>Lead branch delivery teams and KPI reporting.</li><li>Partner with enterprise clients on workforce planning initiatives.</li><li>Coach managers and strengthen service excellence standards.</li></ul><h3>Qualifications</h3><ul><li>7+ years in staffing, operations, or HR leadership.</li><li>Strong financial and analytical acumen.</li><li>Executive-level communication and stakeholder management.</li></ul>'
+  }];
+  const originalFetch = window.fetch;
+  window.fetch = function(url, options){
+    if (String(url).indexOf('myavionte.com/staff/jsonjobsv3.aspx') !== -1) {
+      return Promise.resolve({ json: function(){ return Promise.resolve(mockJobs); } });
+    }
+    return originalFetch(url, options);
+  };
+<\/script>
+`;
+
+      const doc = `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>${mockPrefix}${block}</body></html>`;
+      document.getElementById('preview').srcdoc = doc;
+    })();
+  </script>
+</body>
+</html>

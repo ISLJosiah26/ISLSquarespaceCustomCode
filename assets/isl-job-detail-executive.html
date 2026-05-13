@@ -1,0 +1,408 @@
+<!--
+  ISL Job Detail (Executive UI)
+  Drop-in HTML/CSS/JS block for Squarespace Code Block.
+  Notes:
+  - Preserves existing feed + apply URL contract.
+  - Upgrades visual hierarchy and readability for professional/executive presentation.
+  - Improves accessibility, keyboard focus, semantic structure, and fallback states.
+-->
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --isl-brand-900: #003a72;
+  --isl-brand-700: #00549a;
+  --isl-brand-600: #0070ca;
+  --isl-brand-050: #f1f7fe;
+
+  --isl-ink-900: #0f1e33;
+  --isl-ink-700: #3d4a5d;
+  --isl-ink-500: #5f6b7b;
+
+  --isl-surface: #ffffff;
+  --isl-surface-muted: #f8fafc;
+  --isl-border: rgba(16, 24, 40, 0.1);
+
+  --isl-radius-xl: 20px;
+  --isl-radius-lg: 14px;
+  --isl-radius-pill: 999px;
+
+  --isl-shadow-soft: 0 12px 34px rgba(12, 34, 66, 0.08);
+  --isl-shadow-lift: 0 16px 40px rgba(12, 34, 66, 0.14);
+
+  --isl-speed: 0.22s ease;
+}
+
+#isl-job-detail {
+  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+  color: var(--isl-ink-900);
+}
+
+#isl-job-detail .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0.75rem 0 1.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--isl-ink-500);
+  text-decoration: none;
+}
+#isl-job-detail .back-link:hover { color: var(--isl-brand-700); }
+
+#isl-job-detail .job-card {
+  background: var(--isl-surface);
+  border: 1px solid var(--isl-border);
+  border-radius: var(--isl-radius-xl);
+  box-shadow: var(--isl-shadow-soft);
+  overflow: hidden;
+}
+
+#isl-job-detail .job-hero {
+  padding: 2rem 2rem 1.5rem;
+  background: linear-gradient(140deg, var(--isl-brand-900), var(--isl-brand-700) 60%, var(--isl-brand-600));
+  color: #fff;
+}
+
+#isl-job-detail .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.85rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+#isl-job-detail h1 {
+  margin: 0;
+  font-size: clamp(1.65rem, 3.2vw, 2.3rem);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+#isl-job-detail .meta-grid {
+  margin-top: 1.15rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#isl-job-detail .meta-card {
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+#isl-job-detail .meta-card span {
+  display: block;
+}
+#isl-job-detail .meta-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+#isl-job-detail .meta-value {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#isl-job-detail .hero-actions {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+#isl-job-detail .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--isl-radius-pill);
+  text-decoration: none;
+  border: 1px solid transparent;
+  padding: 11px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform var(--isl-speed), box-shadow var(--isl-speed), background var(--isl-speed);
+}
+
+#isl-job-detail .btn:hover { transform: translateY(-1px); }
+#isl-job-detail .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.42);
+}
+
+#isl-job-detail .btn-primary {
+  background: #fff;
+  color: var(--isl-brand-900);
+}
+#isl-job-detail .btn-primary:hover { background: var(--isl-brand-050); }
+
+#isl-job-detail .btn-ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+#isl-job-detail .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+
+#isl-job-detail .posted-note {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+#isl-job-detail .content {
+  padding: 2rem;
+}
+
+#isl-job-detail .section-title {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--isl-ink-700);
+}
+
+#isl-job-detail .job-desc {
+  font-size: 15px;
+  line-height: 1.82;
+  color: var(--isl-ink-900);
+}
+#isl-job-detail .job-desc p,
+#isl-job-detail .job-desc ul,
+#isl-job-detail .job-desc ol,
+#isl-job-detail .job-desc h2,
+#isl-job-detail .job-desc h3,
+#isl-job-detail .job-desc h4 {
+  margin-top: 0;
+}
+#isl-job-detail .job-desc ul,
+#isl-job-detail .job-desc ol {
+  padding-left: 1.2rem;
+}
+#isl-job-detail .job-desc li { margin-bottom: 0.4rem; }
+
+#isl-job-detail .cta-panel {
+  margin-top: 1.5rem;
+  border: 1px solid var(--isl-border);
+  background: var(--isl-surface-muted);
+  border-radius: var(--isl-radius-lg);
+  padding: 1rem 1rem 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#isl-job-detail .cta-panel p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--isl-ink-700);
+}
+#isl-job-detail .cta-panel strong { color: var(--isl-brand-900); }
+
+#isl-job-detail .state-msg {
+  text-align: center;
+  color: var(--isl-ink-700);
+  padding: 4rem 1.5rem;
+}
+
+#isl-job-detail .spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--isl-brand-050);
+  border-top-color: var(--isl-brand-600);
+  border-radius: 50%;
+  animation: islSpin 0.75s linear infinite;
+  margin: 4rem auto 1rem;
+}
+@keyframes islSpin { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  #isl-job-detail .job-hero,
+  #isl-job-detail .content { padding: 1.25rem; }
+
+  #isl-job-detail .meta-grid { grid-template-columns: 1fr; }
+
+  #isl-job-detail .posted-note {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  #isl-job-detail .cta-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #isl-job-detail .cta-panel .btn {
+    width: 100%;
+  }
+}
+</style>
+
+<div id="isl-job-detail" aria-live="polite">
+  <div class="spinner" aria-hidden="true"></div>
+</div>
+
+<script>
+(function () {
+  var FEED = 'https://myavionte.com/staff/jsonjobsv3.aspx?ID=8S3LMxrRDfIZ81tiA807FyZv/wLIPYlX&proc=getalljobs';
+  var BOARD_PAGE = '/find-work';
+  var APPLY_PAGE = '/careers/apply';
+  var PROVINCES = { AB:'Alberta', BC:'British Columbia', MB:'Manitoba', NB:'New Brunswick', NL:'Newfoundland & Labrador', NS:'Nova Scotia', NT:'Northwest Territories', NU:'Nunavut', ON:'Ontario', PE:'Prince Edward Island', QC:'Quebec', SK:'Saskatchewan', YT:'Yukon' };
+
+  var wrap = document.getElementById('isl-job-detail');
+  var params = new URLSearchParams(window.location.search);
+  var jobId = params.get('id');
+
+  if (!jobId) {
+    showError('No job specified.', 'Please return to the job board and select a position.');
+    return;
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>'"]/g, function (m) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\'': '&#39;', '"': '&quot;' })[m];
+    });
+  }
+
+  function formatPay(job) {
+    var a = parseFloat(job.PayActual);
+    var min = parseFloat(job.PayMin);
+    var max = parseFloat(job.PayMax);
+    var ref = a > 0 ? a : min > 0 ? min : max;
+    if (!(ref > 0)) return null;
+
+    var suffix = ref >= 1000 ? '/year' : '/hour';
+    if (a > 0) return '$' + a.toFixed(2) + suffix;
+    if (min > 0 && max > 0 && min !== max) return '$' + min.toFixed(0) + '–$' + max.toFixed(0) + suffix;
+    if (min > 0) return '$' + min.toFixed(2) + suffix;
+    return null;
+  }
+
+  function formatDate(raw) {
+    var d = new Date(raw);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-CA', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+
+  function titleCase(str) {
+    var minor = /^(a|an|the|and|but|or|for|nor|on|at|to|by|in|of|up|as|is)$/i;
+    return String(str || '').toLowerCase().replace(/\w+/g, function (word, i) {
+      return (i === 0 || !minor.test(word)) ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+    });
+  }
+
+  function locationOf(job) {
+    return [job.JobCity, PROVINCES[job.JobState] || job.JobState].filter(Boolean).join(', ');
+  }
+
+  function showError(title, message) {
+    wrap.innerHTML = ''
+      + '<div class="state-msg">'
+      + '<h2>' + escapeHtml(title) + '</h2>'
+      + '<p>' + escapeHtml(message) + '</p>'
+      + '<p style="margin-top:1.25rem"><a href="' + BOARD_PAGE + '" style="font-weight:700;color:#00549a">Browse all jobs →</a></p>'
+      + '</div>';
+  }
+
+  function cleanDescription() {
+    var nodes = wrap.querySelectorAll('.job-desc *');
+    nodes.forEach(function (el) {
+      el.removeAttribute('style');
+      el.removeAttribute('class');
+    });
+  }
+
+  function render(job) {
+    var name = titleCase(job.Name || 'Job opening');
+    var loc = locationOf(job);
+    var pay = formatPay(job);
+    var kind = job.JobType || 'Position';
+    var dept = (job.Category && job.Category !== 'Main') ? job.Category : ((job.Department && job.Department !== 'Main') ? job.Department : 'Integrated Staffing');
+    var posted = formatDate(job.PostDate);
+    var desc = job.JobDesc_HTML || '<p>No description available.</p>';
+
+    var applyUrl = APPLY_PAGE + '?rpid=' + encodeURIComponent(job.PostId) + '&postid=' + encodeURIComponent(job.PostId20) + '&webapp=1';
+
+    document.title = name + ' | Integrated Staffing';
+
+    wrap.innerHTML = ''
+      + '<a class="back-link" href="' + BOARD_PAGE + '" aria-label="Back to all jobs">'
+      + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>'
+      + 'Back to all jobs</a>'
+
+      + '<article class="job-card">'
+      + '<header class="job-hero">'
+      + '<div class="eyebrow">Integrated Staffing Career Opportunity</div>'
+      + '<h1>' + escapeHtml(name) + '</h1>'
+      + '<div class="meta-grid">'
+      + '<div class="meta-card"><span class="meta-label">Job Type</span><span class="meta-value">' + escapeHtml(kind) + '</span></div>'
+      + '<div class="meta-card"><span class="meta-label">Department</span><span class="meta-value">' + escapeHtml(dept) + '</span></div>'
+      + '<div class="meta-card"><span class="meta-label">Location</span><span class="meta-value">' + escapeHtml(loc || 'Multiple locations') + '</span></div>'
+      + '<div class="meta-card"><span class="meta-label">Compensation</span><span class="meta-value">' + escapeHtml(pay || 'Competitive / based on experience') + '</span></div>'
+      + '</div>'
+      + '<div class="hero-actions">'
+      + '<a class="btn btn-primary" href="' + applyUrl + '">Apply now</a>'
+      + '<button class="btn btn-ghost" id="isl-share-btn" type="button">Copy link</button>'
+      + (posted ? '<span class="posted-note">Posted ' + escapeHtml(posted) + '</span>' : '')
+      + '</div>'
+      + '</header>'
+
+      + '<div class="content">'
+      + '<h2 class="section-title">Role Overview</h2>'
+      + '<div class="job-desc">' + desc + '</div>'
+      + '<div class="cta-panel">'
+      + '<p><strong>Interested in this role?</strong><br>Submit your application and our recruitment team will follow up.</p>'
+      + '<a class="btn btn-primary" href="' + applyUrl + '">Apply for this role</a>'
+      + '</div>'
+      + '</div>'
+      + '</article>';
+
+    cleanDescription();
+
+    var shareBtn = document.getElementById('isl-share-btn');
+    shareBtn.addEventListener('click', function () {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(window.location.href).then(function () {
+        var old = shareBtn.textContent;
+        shareBtn.textContent = 'Link copied';
+        setTimeout(function () { shareBtn.textContent = old; }, 1600);
+      });
+    });
+  }
+
+  fetch(FEED)
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var list = Array.isArray(data) ? data : [];
+      var job = list.find(function (j) { return String(j.ReqID) === String(jobId); });
+      if (!job) {
+        showError('Job not found.', 'This role may have been filled or the URL is outdated.');
+      } else {
+        render(job);
+      }
+    })
+    .catch(function () {
+      showError('Unable to load this posting.', 'Please refresh and try again, or browse all current openings.');
+    });
+})();
+</script>
